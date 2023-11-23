@@ -12,3 +12,6 @@ html, body {
     margin: 0;
 }
 
+button {
+    @apply btn bg-primary hover:bg-second text-white hover:scale-95
+}

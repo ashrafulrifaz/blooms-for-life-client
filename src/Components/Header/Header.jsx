@@ -1,11 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
     return (
         <div className="py-2 max-w-[1200px] mx-auto">
             <div className="navbar">
                 <div className="flex-1">
-                    <a className="text-2xl font-bold">BloomsForLife</a>
+                    <Link to="/" className="text-2xl font-bold"><span className="text-primary">Blooms</span>ForLife</Link>
                 </div>
             <div className="flex-none">
                 <ul className="flex gap-5 transition-all">
