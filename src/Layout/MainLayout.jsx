@@ -3,10 +3,11 @@ import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 
 const MainLayout = () => {
+
     return (
         <div>
             <Header></Header>
-            <div className="max-w-[1200px] mx-auto">
+            <div className="mx-auto max-w-[1200px]">
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

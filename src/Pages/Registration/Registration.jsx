@@ -20,7 +20,7 @@ const Registration = () => {
     }, [])
 
     return (
-        <div className="py-7 grid grid-cols-3 items-center registration">
+        <div className="py-7 grid grid-cols-3 items-center mx-auto registration">
             <div>
                 <img src={registrationImage} alt="" />
             </div>

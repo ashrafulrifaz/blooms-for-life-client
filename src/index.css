@@ -13,7 +13,15 @@ html, body {
 }
 
 button {
-    @apply btn bg-primary hover:bg-second text-white hover:scale-95
+    @apply btn bg-primary hover:bg-second text-white hover:scale-95 border-none
+}
+
+.donor_button {
+    @apply btn bg-primary hover:bg-transparent text-white hover:scale-95 hover:text-primary
+}
+
+.search_button {
+    @apply btn text-primary bg-transparent hover:bg-primary hover:text-white hover:scale-95
 }
 
 .navbar a {
@@ -28,4 +36,8 @@ button {
 .registration select,
 .login input {
     @apply block border border-slate-200 rounded-md py-2 px-4 font-medium focus:outline-none w-full focus:border-second focus:border-opacity-30
+}
+
+#home #header {
+    @apply bg-fixed
 }

@@ -2,7 +2,7 @@ import loginImage from '../../assets/login.jpg'
 
 const Login = () => {
     return (
-        <div className="py-7 grid grid-cols-5 items-center login">
+        <div className="py-7 grid grid-cols-5 items-center mx-auto login">
             <div className='col-span-2'>
                 <img src={loginImage} alt="" />
             </div>

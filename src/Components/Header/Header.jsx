@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
+
     return (
         <div className="border-b border-slate-200 py-1">
             <div className="max-w-[1200px] mx-auto">
