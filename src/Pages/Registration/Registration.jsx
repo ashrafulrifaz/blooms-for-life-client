@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import registrationImage from '../../assets/registration.jpg'
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../Provider/Provider';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Registration = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null)
     const [districts, setDistrict] = useState([])
     const [upazilas, setUpazilas] = useState([])
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const {RegisterUser} = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const selectedDistrictId = districts.find(district => district.name === selectedDistrict) || {}
     const currentUpazilas = upazilas.filter(upazila => selectedDistrictId.id === upazila.district_id) || []
-    console.log(currentUpazilas);
 
     useEffect(() => {
         axios.get('district.json')
@@ -19,6 +24,17 @@ const Registration = () => {
         .then(res => setUpazilas(res.data))
     }, [])
 
+
+    const onSubmit = (data) => {
+        console.log(data);
+        RegisterUser(data.email, data.password)
+            .then(result => {
+                navigate('/')
+                console.log('result', result);
+            })
+            .catch(error => console.log(error.message))
+    }
+
     return (
         <div className="py-7 grid grid-cols-3 items-center mx-auto registration">
             <div>
@@ -26,7 +42,7 @@ const Registration = () => {
             </div>
             <div className="col-span-2">
                 <h2 className='text-2xl text-center'>Register</h2>
-                <form className='space-y-4 py-10 px-20'>
+                <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 py-10 px-20'>
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Name*</label>
@@ -49,7 +65,7 @@ const Registration = () => {
                     </div>  
                     <div className='space-y-2'>
                         <label>Email*</label>
-                        <input type="text" placeholder='Enter your email'/>
+                        <input {...register("email", { required: true })} type="text" placeholder='Enter your email'/>
                     </div>    
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
@@ -80,7 +96,7 @@ const Registration = () => {
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Password*</label>
-                            <input type="password" placeholder='Enter your password' />
+                            <input {...register("password", { required: true })} type="password" placeholder='Enter your password' />
                         </div>  
                         <div className='space-y-2'>
                             <label>Confirm Password*</label>
@@ -88,6 +104,7 @@ const Registration = () => {
                         </div>  
                     </div>      
                     <button className='px-10'>Register</button>
+                    <p className='font-medium'>Already have an account? <Link to="/login" className='font-bold text-primary hover:underline'>Login</Link></p>
                 </form>
             </div>
         </div>

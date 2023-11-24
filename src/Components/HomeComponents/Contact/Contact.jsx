@@ -1,7 +1,15 @@
 import phoneIcon from '../../../assets/phone.png'
 import emailIcon from '../../../assets/envelope-plus.png'
+import { toast } from 'react-toastify';
 
 const Contact = () => {
+
+    const handleContact = e => {
+        e.preventDefault()
+        console.log('clicked');
+        toast("Wow so easy !")
+    }
+ 
     return (
         <div className="py-10 grid grid-cols-2 items-center contact">
             <div className="space-y-4">
@@ -26,7 +34,7 @@ const Contact = () => {
                 </div>
             </div>
             <div>
-                <form className='space-y-4 py-10 px-20 border border-slate-200 rounded-lg'>
+                <form onSubmit={handleContact} className='space-y-4 py-10 px-20 border border-slate-200 rounded-lg'>
                     <div className='space-y-2'>
                         <label>Email*</label>
                         <input type="text" placeholder='Enter your email'/>
@@ -35,7 +43,7 @@ const Contact = () => {
                         <label>Password*</label>
                         <input type="password" placeholder='Enter your password' />
                     </div>  
-                    <button className='px-10'>Login</button>
+                    <button className='px-10'>Submit</button>
                 </form>
             </div>
         </div>
