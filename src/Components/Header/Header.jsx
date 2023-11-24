@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/Provider";
 
 const Header = () => {
+    const {user, LogOutUser} = useContext(AuthContext)
 
     return (
         <div className="border-b border-slate-200 py-1">
@@ -20,12 +23,36 @@ const Header = () => {
                         <li>
                             <NavLink to="/blog">Blog</NavLink>    
                         </li>
-                        <li>
-                            <NavLink to="/login">Login</NavLink>    
-                        </li>
-                        <li>
-                            <NavLink to="/registration">Registration</NavLink>    
-                        </li>
+                        {
+                            user && 
+                            <li>
+                                <NavLink to="/dashboard">Dashboard</NavLink>    
+                            </li>
+                        }
+                        {
+                            user && 
+                            <li>
+                                <NavLink to="/fundings">Fundings</NavLink>    
+                            </li>
+                        }
+                        {
+                            !user &&  
+                            <li>
+                                <NavLink to="/login">Login</NavLink>    
+                            </li>
+                        }
+                        {
+                            !user &&  
+                            <li>
+                                <NavLink to="/registration">Registration</NavLink>    
+                            </li>
+                        }
+                        {
+                            user && 
+                            <li>
+                                <a className="cursor-pointer" onClick={() => LogOutUser()}>Log Out</a>    
+                            </li>
+                        }
                     </ul>
                 </div>
                 </div>

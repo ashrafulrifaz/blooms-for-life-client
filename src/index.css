@@ -32,6 +32,10 @@ button {
     @apply text-primary
 }
 
+.dashboard li .active {
+    @apply text-[#39A7FF] bg-[#39a6ff34]
+}
+
 .registration input,
 .registration select,
 .login input,
