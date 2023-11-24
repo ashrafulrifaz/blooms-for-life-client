@@ -4,14 +4,21 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Provider/Provider';
 import { Link, useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
 const Registration = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null)
+    const [passError, setPassError] = useState(null)
     const [districts, setDistrict] = useState([])
     const [upazilas, setUpazilas] = useState([])
+    const [loadingRegister, setLoadingRegister] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const {RegisterUser} = useContext(AuthContext)
     const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
+
+    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY
+    const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
     const selectedDistrictId = districts.find(district => district.name === selectedDistrict) || {}
     const currentUpazilas = upazilas.filter(upazila => selectedDistrictId.id === upazila.district_id) || []
@@ -25,14 +32,51 @@ const Registration = () => {
     }, [])
 
 
-    const onSubmit = (data) => {
-        console.log(data);
-        RegisterUser(data.email, data.password)
-            .then(result => {
-                navigate('/')
-                console.log('result', result);
+    const onSubmit = async(data) => {
+        setLoadingRegister(true)
+        if(data.password !== data.confirm){
+            setPassError('password not matching')
+            setLoadingRegister(false)
+            return
+        }
+        setPassError(null)
+
+        const imageFile = {image: data.image[0]}
+        const res = await axiosPublic.post(image_hosting_url, imageFile, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        })
+        if(res.data.success){
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                blood_group: data.blood, 
+                district: data.district,
+                upazila: data.upazila,
+                image: res.data.data.display_url,
+                password: data.password,
+                role: 'donor',
+                status: 'active'
+            }
+            RegisterUser(data.email, data.password)
+            .then(() => {
+                axiosPublic.post('/users', userInfo)
+                .then(res => {
+                    if(res.data.success){
+                        navigate('/')
+                        setLoadingRegister(false)
+                    }
+                })
             })
-            .catch(error => console.log(error.message))
+            .catch(error => {
+                console.log(error.message)
+                setLoadingRegister(false)
+                return
+            })
+        }
+        setLoadingRegister(false)
+        
     }
 
     return (
@@ -46,11 +90,12 @@ const Registration = () => {
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Name*</label>
-                            <input type="text" placeholder='Enter your name'/>
+                            <input {...register("name", { required: true })} type="text" placeholder='Enter your name'/>
+                            {errors.name && <span className='text-red-500 font-medium text-sm'>Name is required</span>}
                         </div>
                         <div className='space-y-2'>
                             <label>Blood Group*</label>
-                            <select>
+                            <select {...register("blood", { required: true })}>
                                 <option value="Blood Group" selected disabled>Blood Group</option>                                
                                 <option value="A+">A+</option>                                
                                 <option value="A-">A-</option>                                
@@ -61,49 +106,60 @@ const Registration = () => {
                                 <option value="O+">O+</option>                                
                                 <option value="O-">O-</option>                                
                             </select>
+                            {errors.blood && <span className='text-red-500 font-medium text-sm'>Blood Group is required</span>}
                         </div>
                     </div>  
                     <div className='space-y-2'>
                         <label>Email*</label>
                         <input {...register("email", { required: true })} type="text" placeholder='Enter your email'/>
+                        {errors.email && <span className='text-red-500 font-medium text-sm'>Email is required</span>}
                     </div>    
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>District*</label>
-                            <select onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
+                            <select {...register("district", { required: true })} onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
                                 <option value="District" selected disabled>District</option>
                                 {
                                     districts && districts.map(district => 
                                     <option key={district.id} value={district.name}>{district.name}</option>)
                                 }
                             </select>
+                            {errors.district && <span className='text-red-500 font-medium text-sm'>District is required</span>}
                         </div>
                         <div className='space-y-2'>
                             <label>Upazila*</label>
-                           <select>
+                           <select {...register("upazila", { required: true })}>
                                 <option value="Upazila" selected disabled>Upazila</option>
                                 {
                                     currentUpazilas && currentUpazilas.map(upazila => 
                                     <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
                                 }
                             </select>
+                            {errors.upazila && <span className='text-red-500 font-medium text-sm'>Upazila is required</span>}
                         </div>
                     </div>      
                     <div className='space-y-2'>
                         <label>Image*</label>
-                        <input type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
-                    </div>         
+                        <input {...register("image", { required: true })} type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
+                        {errors.image && <span className='text-red-500 font-medium text-sm'>Image is required</span>} 
+                    </div>        
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Password*</label>
                             <input {...register("password", { required: true })} type="password" placeholder='Enter your password' />
+                            {errors.password && <span className='text-red-500 font-medium text-sm'>Password is required</span>}
                         </div>  
                         <div className='space-y-2'>
                             <label>Confirm Password*</label>
-                            <input type="password" placeholder='Confirm your password' />
+                            <input {...register("confirm", { required: true })} type="password" placeholder='Confirm your password' />
+                            {errors.confirm && <span className='text-red-500 font-medium text-sm'>Confirm your Password</span>}
                         </div>  
-                    </div>      
-                    <button className='px-10'>Register</button>
+                    </div>    
+                    {passError && <span className='text-red-500 font-medium text-sm block'>{passError}</span>}  
+                    <button className='px-10 flex items-center gap-3'>
+                        <span>Register</span>
+                        {loadingRegister && <span className="loading loading-spinner loading-sm"></span>}
+                    </button>
                     <p className='font-medium'>Already have an account? <Link to="/login" className='font-bold text-primary hover:underline'>Login</Link></p>
                 </form>
             </div>
