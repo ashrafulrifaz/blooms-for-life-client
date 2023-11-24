@@ -10,7 +10,7 @@ const Footer = () => {
 
     return (
         <div className="border-t border-slate-200" style={footerBg}>
-            <div className="grid grid-cols-4 gap-12 py-5 max-w-[1200px] mx-auto">
+            <div className="grid grid-cols-4 gap-12 py-5 max-w-[1150px] mx-auto">
                 <div>
                     <Link to="/" className="text-2xl font-bold"><span className="text-primary">Blooms</span>ForLife</Link>
                     <p className='text-slate-700 font-medium mt-2'>At BloomsForLife, we envision a world where every beat is a beacon of hope. We strive to build a community that understands the significance of each drop, a community united by the purpose of giving the gift of life.</p>
