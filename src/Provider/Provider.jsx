@@ -1,25 +1,42 @@
 import { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import app from "../firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null)
 
 const Provider = ({children}) => {
     const auth = getAuth(app)
     const [user, setUser] = useState(null)
+    const [districts, setDistrict] = useState([])
+    const [upazilas, setUpazilas] = useState([])
     const [loading, setLoading] = useState(true)
-    console.log(user);
+    const axiosPublic = useAxiosPublic()
 
     useEffect(() => {
+        axiosPublic.get('/districts')
+        .then(res => setDistrict(res.data))
+
+        axiosPublic.get(`/upazilas`)
+        .then(res => setUpazilas(res.data))
+
+
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)         
             setLoading(false)
+            if(currentUser){
+                const userInfo = {email: currentUser?.email}
+                axiosPublic.post('/jwt', userInfo, {withCredentials: true})
+                .then(res => {
+                    console.log(res.data);
+                })
+            }
         })
 
         return () => {
            unsubscribe()
         }
-    }, [auth])
+    }, [auth, axiosPublic])
 
     const RegisterUser = (email, password) => {
         setLoading(true)
@@ -36,7 +53,7 @@ const Provider = ({children}) => {
     }
 
     const info = {
-        user, RegisterUser, LoginUser, LogOutUser, loading, 
+        user, setUser, RegisterUser, LoginUser, LogOutUser, loading, auth, districts, upazilas
     }
 
     return (

@@ -39,8 +39,15 @@ button {
 .registration input,
 .registration select,
 .login input,
-.contact input {
+.contact input,
+.profile_update input,
+.profile_update select {
     @apply block border border-slate-200 rounded-md py-2 px-4 font-medium focus:outline-none w-full focus:border-second focus:border-opacity-30
+}
+
+.profile input,
+.profile select{
+    @apply block w-full disabled:bg-white disabled:text-[#151515]
 }
 
 #home #header {

@@ -7,9 +7,10 @@ import { IoCreateOutline } from "react-icons/io5";
 import { FiUsers } from "react-icons/fi";
 import { CiCircleList } from "react-icons/ci";
 import { MdContentCopy } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
 
 const Dashboard = () => {
-    const [isAdmin] = useState(true)
+    const [isAdmin] = useState('donor')
 
     return (
         <div className="flex min-h-screen bg-slate-100 dashboard">
@@ -34,7 +35,7 @@ const Dashboard = () => {
                             <span className="capitalize font-main font-medium text-[15px]">Create Donation Request</span>
                         </NavLink>
                     </li>
-                    { isAdmin ? 
+                    { isAdmin === 'admin'? 
                     <div className="space-y-2">
                         <li>
                             <NavLink to="/dashboard/all-users" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
@@ -59,9 +60,13 @@ const Dashboard = () => {
                     <div className="space-y-2">
                         
                     </div>}
+                    <NavLink to="/dashboard/profile" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                        <CgProfile className="mt-[2px] text-lg" />
+                        <span className="capitalize font-main font-medium text-[15px]">My Profile</span>
+                    </NavLink>
                 </ul>
             </div>
-            <div className="w-[75%]">
+            <div className="w-[75%] p-10">
                 <Outlet></Outlet>
             </div>
         </div>

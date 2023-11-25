@@ -5,6 +5,9 @@ import Home from "../Pages/Home/Home";
 import Registration from "../Pages/Registration/Registration";
 import Login from "../Pages/Login/Login";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import UserHomePage from "../Pages/UserDashboard/HomePage/UserHomePage";
+import PrivateRoute from "./PrivateRoute";
+import UserProfile from "../Pages/UserDashboard/ProfilePage/UserProfile";
 
 const Route = createBrowserRouter([
     {
@@ -28,10 +31,17 @@ const Route = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
-            
+            {
+                path: '/dashboard',
+                element: <UserHomePage></UserHomePage>
+            },
+            {
+                path: '/dashboard/profile',
+                element: <UserProfile></UserProfile>
+            }
         ]
     }
 ])

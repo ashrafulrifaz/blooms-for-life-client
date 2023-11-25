@@ -1,19 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import registrationImage from '../../assets/registration.jpg'
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Provider/Provider';
 import { Link, useNavigate } from 'react-router-dom';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import { updateProfile } from 'firebase/auth';
 
 const Registration = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null)
     const [passError, setPassError] = useState(null)
-    const [districts, setDistrict] = useState([])
-    const [upazilas, setUpazilas] = useState([])
     const [loadingRegister, setLoadingRegister] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const {RegisterUser} = useContext(AuthContext)
+    const {RegisterUser, user, setUser, auth, districts, upazilas} = useContext(AuthContext)
     const navigate = useNavigate()
     const axiosPublic = useAxiosPublic()
 
@@ -22,14 +20,6 @@ const Registration = () => {
 
     const selectedDistrictId = districts.find(district => district.name === selectedDistrict) || {}
     const currentUpazilas = upazilas.filter(upazila => selectedDistrictId.id === upazila.district_id) || []
-
-    useEffect(() => {
-        axios.get('district.json')
-        .then(res => setDistrict(res.data))
-
-        axios.get('upazilas.json')
-        .then(res => setUpazilas(res.data))
-    }, [])
 
 
     const onSubmit = async(data) => {
@@ -61,6 +51,10 @@ const Registration = () => {
             }
             RegisterUser(data.email, data.password)
             .then(() => {
+                updateProfile(auth.currentUser, {
+                   displayName: data.name, photoURL: res.data.data.display_url
+                })
+                setUser({...user, displayName: data.name, photoURL: res.data.data.display_url})
                 axiosPublic.post('/users', userInfo)
                 .then(res => {
                     if(res.data.success){
@@ -131,7 +125,11 @@ const Registration = () => {
                            <select {...register("upazila", { required: true })}>
                                 <option value="Upazila" selected disabled>Upazila</option>
                                 {
-                                    currentUpazilas && currentUpazilas.map(upazila => 
+                                    currentUpazilas.length > 0 ? 
+                                    currentUpazilas.map(upazila => 
+                                    <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
+                                    :
+                                    upazilas.map(upazila => 
                                     <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
                                 }
                             </select>
