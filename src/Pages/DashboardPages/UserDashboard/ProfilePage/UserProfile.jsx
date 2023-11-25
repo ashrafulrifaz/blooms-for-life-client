@@ -5,29 +5,69 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { AuthContext } from "../../../Provider/Provider";
+import { updateProfile } from "firebase/auth";
+import axios from "axios";
 
 const UserProfile = () => {
     const {user} = useAuth()
-    const axiosSecure = useAxiosPublic()
+    const axiosPublic = useAxiosPublic()
     const [isEdit, setIsEdit] = useState(false)
     const [selectedDistrict, setSelectedDistrict] = useState(null)
-    const {districts, upazilas} = useContext(AuthContext)
+    const {districts, upazilas, auth, setUser} = useContext(AuthContext)
     const [updateLoading, setUpdateLoding] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit } = useForm()
 
-    const { isPending, error, data } = useQuery({
+    const { data } = useQuery({
         queryKey: ['single_user'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users/${user?.email}`)
+            const res = await axiosPublic.get(`/users/${user?.email}`)
             return res.data
         }
     })
-    const {_id, name, email, image, blood_group, district, upazila, password} = data || {}
+    const {_id, name, email, image, blood_group, district, upazila} = data || {}
     const selectedDistrictId = districts.find(district => district.name === selectedDistrict) || {}
     const currentUpazilas = upazilas.filter(upazila => selectedDistrictId.id === upazila.district_id) || []
+    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY
+    const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = async (data) => {        
+        setUpdateLoding(true)
+        let newImage;
+        if(data.image.length > 0){
+            const imageFile = {image: data.image[0]}
+            const res = await axios.post(image_hosting_url, imageFile, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
+            if(res.data.success){
+                newImage = res.data.data.display_url
+                console.log(res.data.data.display_url);
+            } else {     
+                newImage = image
+                setUpdateLoding(true)
+                return
+            }
+        }
+
+        const newInfo = {
+            name: data.name !== undefined ? data.name : name,
+            blood_group: data.blood !== undefined ? data.blood : blood_group,
+            district: data.district !== undefined ? data.district : district,
+            upazila: data.upazila !== undefined ? data.upazila : upazila,
+            image: newImage !== undefined ? newImage : image
+        }
+        updateProfile(auth.currentUser, {
+            displayName: data.name !== undefined ? data.name : name, photoURL: data.image.length > 0 ? newImage: image
+        })
+        setUser({...user, displayName: data.name !== undefined ? data.name : name, photoURL: data.image.length > 0 ? newImage: image})
+        
+        axiosPublic.put(`/users/${_id}`, newInfo)
+        .then(res => {
+            console.log(res.data);
+            setUpdateLoding(false)
+        })
+        setUpdateLoding(false)
     }
 
 
@@ -54,12 +94,11 @@ const UserProfile = () => {
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Name</label>
-                            <input disabled={!isEdit} {...register("name", { required: true })} defaultValue={name} type="text" placeholder='Enter your name' className="capitalize"/>
-                            {errors.name && <span className='text-red-500 font-medium text-sm'>Name is required</span>}
+                            <input disabled={!isEdit} {...register("name")} defaultValue={name} type="text" placeholder='Enter your name' className={`${isEdit ? 'normal-case' : 'capitalize'}`}/>
                         </div>
                         <div className='space-y-2'>
                             <label>Blood Group</label>
-                            <select disabled={!isEdit} defaultValue={blood_group} {...register("blood", { required: true })}>
+                            <select disabled={!isEdit} defaultValue={blood_group} {...register("blood")}>
                                 <option value="A+">A+</option>                                
                                 <option value="A-">A-</option>                                
                                 <option value="B+">B+</option>                                
@@ -69,28 +108,25 @@ const UserProfile = () => {
                                 <option value="O+">O+</option>                                
                                 <option value="O-">O-</option>                                
                             </select>
-                            {errors.blood && <span className='text-red-500 font-medium text-sm'>Blood Group is required</span>}
                         </div>
                     </div>  
                     <div className='space-y-2'>
                         <label>Email</label>
-                        <input disabled defaultValue={email} {...register("email", { required: true })} type="text" placeholder='Enter your email'/>
-                        {errors.email && <span className='text-red-500 font-medium text-sm'>Email is required</span>}
+                        <p className="font-medium">{email}</p>
                     </div>    
                     <div className="grid grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>District</label>
-                            <select disabled={!isEdit} defaultValue={district} {...register("district", { required: true })} onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
+                            <select disabled={!isEdit} defaultValue={district} {...register("district")} onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
                                 {
                                     districts && districts.map(district => 
                                     <option key={district.id} value={district.name}>{district.name}</option>)
                                 }
                             </select>
-                            {errors.district && <span className='text-red-500 font-medium text-sm'>District is required</span>}
                         </div>
                         <div className='space-y-2'>
                             <label>Upazila</label>
-                           <select disabled={!isEdit} defaultValue={upazila} {...register("upazila", { required: true })}>
+                           <select disabled={!isEdit} defaultValue={upazila} {...register("upazila")}>
                                 {
                                     currentUpazilas.length > 0 ? 
                                     currentUpazilas.map(upazila => 
@@ -100,27 +136,12 @@ const UserProfile = () => {
                                     <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
                                 }
                             </select>
-                            {errors.upazila && <span className='text-red-500 font-medium text-sm'>Upazila is required</span>}
                         </div>
                     </div>      
                     <div className={`space-y-2 ${isEdit ? 'block' : 'hidden'}`}>
                         <label>Image</label>
-                        <input {...register("image", { required: true })} type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
-                        {errors.image && <span className='text-red-500 font-medium text-sm'>Image is required</span>} 
-                    </div>        
-                    <div className="grid grid-cols-2 gap-5">
-                        <div className='space-y-2'>
-                            <label>Password</label>
-                            <input disabled={!isEdit} defaultValue={password} {...register("password", { required: true })} type={`${isEdit ? 'password' : 'text'}`} placeholder='Enter your password' />
-                            {errors.password && <span className='text-red-500 font-medium text-sm'>Password is required</span>}
-                        </div>  
-                        <div className={`space-y-2 ${isEdit ? 'block' : 'hidden'}`}>
-                            <label>Confirm Password</label>
-                            <input {...register("confirm", { required: true })} type="password" placeholder='Confirm your password' />
-                            {errors.confirm && <span className='text-red-500 font-medium text-sm'>Confirm your Password</span>}
-                        </div>  
-                    </div>    
-                    {/* {passError && <span className='text-red-500 font-medium text-sm block'>{passError}</span>}   */}
+                        <input {...register("image")} type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
+                    </div>     
                     {
                         isEdit && 
                         <button className='px-10 flex items-center gap-3'>
