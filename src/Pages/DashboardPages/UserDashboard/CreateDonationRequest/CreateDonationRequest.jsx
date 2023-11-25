@@ -10,14 +10,13 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 const CreateDonationRequest = () => {
     const {user, districts, upazilas} = useContext(AuthContext)
     const [selectedDistrict, setSelectedDistrict] = useState(null)
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const [startDate, setStartDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(null);
     const axiosSecure = useAxiosSecure()
 
     const time = selectedTime?.toString().slice(16, 21)
     const time12 = moment(time, "HH:mm").format("h:mm A");
-    console.log(time12);
 
     const selectedDistrictId = districts.find(district => district.name === selectedDistrict) || {}
     const currentUpazilas = upazilas.filter(upazila => selectedDistrictId.id === upazila.district_id) || []
@@ -38,6 +37,7 @@ const CreateDonationRequest = () => {
         }
         axiosSecure.post('/donation-requests', newRequest)
         .then(res => {
+            reset()
             console.log(res.data);
         })
     }

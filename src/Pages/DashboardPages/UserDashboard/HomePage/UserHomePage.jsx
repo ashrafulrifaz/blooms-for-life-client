@@ -1,37 +1,35 @@
 // import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../../Hooks/useAuth";
+import { useState } from "react";
+import useDonationRequests from "../../../../Hooks/useDonationRequests";
 import UserDonationCard from "./UserDonationCard";
 
 const UserHomePage = () => {
-    const {user} = useAuth()
-    // const { isPending, error, data } = useQuery({
-    //     queryKey: ['repoData'],
-    //     queryFn: () =>
-    //       fetch('https://api.github.com/repos/TanStack/query').then(
-    //         (res) => res.json(),
-    //       ),
-    // })
+    const {data, isPending, user} = useDonationRequests()
+    const [currentStatus, setCurrentStatus] = useState(null)
+    console.log(currentStatus);
 
     return (
-        <div>
+        <div className="user_home">
             <h1 className="capitalize text-2xl font-second">Welcome {user?.displayName}. Thank you for joining BloomsForLife</h1>
-            <div className="mt-8 bg-white rounded-xl px-10 py-5">
+            <div className="mt-8 bg-white rounded-xl p-5">
                 <h3 className="text-lg">Your recent donation</h3>
-                <div className="overflow-x-auto mt-8">
+                <div className="overflow-x-auto my-8 wrapper">
                     <table className="table">
-                        <thead className="bg-[#D1A054] text-white uppercase">
+                        <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]" style={{borderRadius: '50px'}}>
                             <tr>
-                                <th>#</th>
-                                <th>name</th>
-                                <th>email</th>
-                                <th>role</th>
-                                <th>action</th>
+                                <th>recipient name</th>
+                                <th>recipient location</th>
+                                <th>Date & Time</th>
+                                { currentStatus === 'inprogress' && <th>donor info</th> }
+                                <th>Status</th>
+                                { currentStatus === 'inprogress' && <th>Update Status</th> }
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {
-                                users && users.map((item, idx) => <UserDonationCard key={idx} item={item} id={idx} refetch={refetch}></UserDonationCard>)
-                            } */}
+                            {
+                                data && data.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>)
+                            }
                         </tbody>
                     </table>
                 </div>
