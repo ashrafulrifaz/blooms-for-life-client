@@ -35,36 +35,38 @@ const Dashboard = () => {
                             <span className="capitalize font-main font-medium text-[15px]">Create Donation Request</span>
                         </NavLink>
                     </li>
-                    { isAdmin === 'admin'? 
-                    <div className="space-y-2">
-                        <li>
-                            <NavLink to="/dashboard/all-users" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
-                                <FiUsers className="mt-[2px] text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px]">all users</span>
-                            </NavLink>
-                        </li>
-                        <li>                            
-                            <NavLink to="/dashboard/my-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
-                                <CiCircleList className="mt-[2px] text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px]">All Blood Donation Request</span>
-                            </NavLink>
-                        </li>
-                        <li>                            
-                            <NavLink to="/dashboard/my-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
-                                <MdContentCopy className="mt-[2px] text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px]">Content Management</span>
-                            </NavLink>
-                        </li>
-                    </div>
-                    :
-                    <div className="space-y-2">
-                        
-                    </div>}
-                    <NavLink to="/dashboard/profile" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
-                        <CgProfile className="mt-[2px] text-lg" />
-                        <span className="capitalize font-main font-medium text-[15px]">My Profile</span>
-                    </NavLink>
+                    <li>
+                        <NavLink to="/dashboard/profile" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                            <CgProfile className="mt-[2px] text-lg" />
+                            <span className="capitalize font-main font-medium text-[15px]">My Profile</span>
+                        </NavLink>
+                    </li>
                 </ul>
+                {/* { isAdmin === 'admin'? 
+                <ul className="space-y-2">
+                    <li>
+                        <NavLink to="/dashboard/all-users" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                            <FiUsers className="mt-[2px] text-lg" />
+                            <span className="capitalize font-main font-medium text-[15px]">all users</span>
+                        </NavLink>
+                    </li>
+                    <li>                            
+                        <NavLink to="/dashboard/my-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                            <CiCircleList className="mt-[2px] text-lg" />
+                            <span className="capitalize font-main font-medium text-[15px]">All Blood Donation Request</span>
+                        </NavLink>
+                    </li>
+                    <li>                            
+                        <NavLink to="/dashboard/my-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                            <MdContentCopy className="mt-[2px] text-lg" />
+                            <span className="capitalize font-main font-medium text-[15px]">Content Management</span>
+                        </NavLink>
+                    </li>
+                </ul>
+                :
+                <div className="space-y-2">
+                    
+                </div>} */}
             </div>
             <div className="w-[75%] p-10">
                 <Outlet></Outlet>

@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import { AuthContext } from "../../../Provider/Provider";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
+import useAuth from "../../../../Hooks/useAuth";
+import { AuthContext } from "../../../../Provider/Provider";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const UserProfile = () => {
     const {user} = useAuth()
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const [isEdit, setIsEdit] = useState(false)
     const [selectedDistrict, setSelectedDistrict] = useState(null)
     const {districts, upazilas, auth, setUser} = useContext(AuthContext)
@@ -20,7 +20,7 @@ const UserProfile = () => {
     const { data } = useQuery({
         queryKey: ['single_user'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/users/${user?.email}`)
+            const res = await axiosSecure.get(`/users/${user?.email}`)
             return res.data
         }
     })
@@ -62,7 +62,7 @@ const UserProfile = () => {
         })
         setUser({...user, displayName: data.name !== undefined ? data.name : name, photoURL: data.image.length > 0 ? newImage: image})
         
-        axiosPublic.put(`/users/${_id}`, newInfo)
+        axiosSecure.put(`/users/${_id}`, newInfo)
         .then(res => {
             console.log(res.data);
             setUpdateLoding(false)

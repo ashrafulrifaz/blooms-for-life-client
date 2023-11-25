@@ -41,7 +41,10 @@ button {
 .login input,
 .contact input,
 .profile_update input,
-.profile_update select {
+.profile_update select,
+.donation_request input,
+.donation_request select,
+.donation_request textarea {
     @apply block border border-slate-200 rounded-md py-2 px-4 font-medium focus:outline-none w-full focus:border-second focus:border-opacity-30
 }
 
@@ -52,4 +55,8 @@ button {
 
 #home #header {
     @apply bg-fixed
+}
+
+.react-datepicker-wrapper {
+    width: 100%
 }

@@ -8,6 +8,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import UserHomePage from "../Pages/DashboardPages/UserDashboard/HomePage/UserHomePage";
 import UserProfile from "../Pages/DashboardPages/UserDashboard/ProfilePage/UserProfile";
+import CreateDonationRequest from "../Pages/DashboardPages/UserDashboard/CreateDonationRequest/CreateDonationRequest";
+import MyDonationRequests from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/MyDonationRequests";
 
 const Route = createBrowserRouter([
     {
@@ -41,6 +43,14 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/profile',
                 element: <UserProfile></UserProfile>
+            },
+            {
+                path: '/dashboard/create-donation-request',
+                element: <CreateDonationRequest></CreateDonationRequest>
+            },
+            {
+                path: '/dashboard/my-donation-requests',
+                element: <MyDonationRequests></MyDonationRequests>
             }
         ]
     }
