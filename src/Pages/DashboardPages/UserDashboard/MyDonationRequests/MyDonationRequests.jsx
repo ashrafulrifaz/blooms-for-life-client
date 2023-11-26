@@ -3,11 +3,13 @@ import useDonationRequests from "../../../../Hooks/useDonationRequests";
 import UserDonationCard from "../HomePage/UserDonationCard";
 
 const MyDonationRequests = () => {
-    const {data, user} = useDonationRequests()
+    const {data, user, refetch} = useDonationRequests()
     const [currentStatus, setCurrentStatus] = useState(null)
     const [currentData, setCurrentData] = useState(data || [])
     const [currentPage, setCurrentPage] = useState(0)
     const perPageItem = 4
+
+    console.log(refetch);
 
     useEffect(() => {
         setCurrentData(data)
@@ -77,9 +79,9 @@ const MyDonationRequests = () => {
                             {
                                 currentData?.length > 0 &&
                                 currentData?.length > 4 ? 
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>).slice(firstItemIndex + 3, lastItemIndex + 3)
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} refetch={refetch}></UserDonationCard>).slice(firstItemIndex + 3, lastItemIndex + 3)
                                 :
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>)
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} refetch={refetch}></UserDonationCard>)
                             }
                         </tbody>
                     </table>
@@ -88,7 +90,7 @@ const MyDonationRequests = () => {
                         <p className="text-center py-5 text-xl capitalize font-second">no {currentStatus} data found</p>
                     }
                 </div>
-                    <p className="text-xs uppercase -mt-5">slide right to see full table</p>
+                {currentData?.length > 0 && <p className="text-xs uppercase -mt-5">slide right to see full table</p>}
                 <div className="pagination flex justify-center text-center gap-3 mt-5">
                     {
                         currentData?.length > 4 &&

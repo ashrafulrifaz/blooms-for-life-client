@@ -1,12 +1,40 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 
-const UserDonationCard = ({item, setCurrentStatus, currentStatus}) => {
+const UserDonationCard = ({item, setCurrentStatus, currentStatus, refetch}) => {
     const {_id, requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, status} = item
+    const axiosSecure = useAxiosSecure()
+    console.log(refetch);
+    
     useEffect(() => {        
         setCurrentStatus('inprogress')
     }, [status, setCurrentStatus])
+
+    const handleDelete = () => {
+          Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/donation-requests/${_id}`)
+                .then(() => {
+                    refetch()
+                    Swal.fire({
+                        title: "Your Request has been deleted.",
+                        icon: "success"
+                      })
+                })
+              
+            }
+          });
+    }
 
     return (
         <tr>
@@ -59,7 +87,7 @@ const UserDonationCard = ({item, setCurrentStatus, currentStatus}) => {
                 </div>
                 <div>
                     <Link>
-                        <a className="cursor-pointer text-primary border border-primary rounded-md py-1 px-2 capitalize hover:bg-primary hover:text-white transition-all text-xs">Delete</a>
+                        <a onClick={handleDelete} className="cursor-pointer text-primary border border-primary rounded-md py-1 px-2 capitalize hover:bg-primary hover:text-white transition-all text-xs">Delete</a>
                     </Link>
                 </div>
             </th>

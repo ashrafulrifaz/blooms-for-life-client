@@ -5,7 +5,7 @@ import useAxiosSecure from "./useAxiosSecure"
 const useDonationRequests = () => {
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
-    const { isPending, data } = useQuery({
+    const { isPending, data, refetch } = useQuery({
         queryKey: ['donation_requests'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/donation-requests/${user?.email}`)
@@ -13,7 +13,7 @@ const useDonationRequests = () => {
         }          
     })
 
-    return {data, isPending, user}
+    return {data, isPending, user, refetch}
 }
 
 export default useDonationRequests

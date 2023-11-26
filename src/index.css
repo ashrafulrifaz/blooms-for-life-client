@@ -76,6 +76,10 @@ button {
     @apply bg-[#39A7FF] text-white
 }
 
+.swal2-cancel {
+    margin-top: 0px!important
+}
+
 table {
     border-spacing: 0;
     border-collapse: collapse;

@@ -34,6 +34,7 @@ const UserHomePage = () => {
                         </tbody>
                     </table>
                 </div>
+                {data?.length > 0 && <p className="text-xs uppercase -mt-5">slide right to see full table</p>}
                 {
                     data?.length > 3 && 
                     <div className="text-center">
