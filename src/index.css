@@ -61,7 +61,8 @@ button {
     width: 100%
 }
 
-.user_home .wrapper {    
+.user_home .wrapper,
+.my_donation .wrapper {    
   overflow: auto;
   border-radius: 8px;
   border: 1px solid #D7EDFF
