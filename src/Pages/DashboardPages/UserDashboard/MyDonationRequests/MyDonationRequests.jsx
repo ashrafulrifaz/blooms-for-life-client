@@ -3,10 +3,11 @@ import useDonationRequests from "../../../../Hooks/useDonationRequests";
 import UserDonationCard from "../HomePage/UserDonationCard";
 
 const MyDonationRequests = () => {
-    const {data, isPending, user} = useDonationRequests()
+    const {data, user} = useDonationRequests()
     const [currentStatus, setCurrentStatus] = useState(null)
     const [currentData, setCurrentData] = useState(data || [])
-    console.log(currentData);
+    const [currentPage, setCurrentPage] = useState(0)
+    const perPageItem = 5
 
     useEffect(() => {
         setCurrentData(data)
@@ -17,11 +18,20 @@ const MyDonationRequests = () => {
     const inprogressData = data?.filter(item => item.status === 'inprogress')
     const doneData = data?.filter(item => item.status === 'done')
     const canceledData = data?.filter(item => item.status === 'canceled')
+
+
+    // pagination calculation
+    const lastItemIndex = perPageItem * currentPage + 3;
+    const firstItemIndex = lastItemIndex - perPageItem
+    const totalPage = Math.ceil(currentData?.length / perPageItem)    
+    const pages = currentData ? [...Array(totalPage).keys()] : []
+    console.log(firstItemIndex, lastItemIndex);
     
 
     const handleFiltering = e => {
         const filterValue = e.target.value;
         setCurrentStatus(filterValue)
+        setCurrentPage(0)
         if(filterValue === 'all'){
             setCurrentData(data)
         } else if(filterValue === 'pending') {
@@ -67,13 +77,27 @@ const MyDonationRequests = () => {
                         <tbody>
                             {
                                 currentData?.length > 0 &&
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>)
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>).slice(firstItemIndex, lastItemIndex)
                             }
                         </tbody>
                     </table>
                     {
                         currentData?.length === 0 &&
                         <p className="text-center py-5 text-xl capitalize font-second">no {currentStatus} data found</p>
+                    }
+                </div>
+                <div className="pagination flex justify-center text-center gap-3">
+                    {
+                        currentData.length > 5 &&
+                        pages.map(page => 
+                        <a
+                            className={currentPage === page ? 'selected' : undefined}
+                            onClick={() => {
+                                setCurrentPage(page)
+                            }}
+                            key={page}
+                        >{page + 1}</a>
+                        )
                     }
                 </div>
             </div>

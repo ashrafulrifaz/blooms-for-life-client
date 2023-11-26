@@ -68,6 +68,14 @@ button {
   border: 1px solid #D7EDFF
 }
 
+.pagination a {
+    @apply bg-white text-[#39A7FF] border border-[#39A7FF] cursor-pointer rounded-full w-7 h-7 flex items-center justify-center transition-all hover:bg-[#39A7FF] hover:text-white
+}
+
+.pagination .selected {
+    @apply bg-[#39A7FF] text-white
+}
+
 table {
     border-spacing: 0;
     border-collapse: collapse;
