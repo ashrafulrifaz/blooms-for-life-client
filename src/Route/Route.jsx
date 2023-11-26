@@ -14,6 +14,8 @@ import DonationRequestDetails from "../Pages/DashboardPages/UserDashboard/MyDona
 import DashboardHome from "../Pages/DashboardPages/DashboardHome/DashboardHome";
 import AllUsers from "../Pages/DashboardPages/AdminDashboard/AllUsers/AllUsers";
 import AllDonationRequest from "../Pages/DashboardPages/AdminDashboard/AllDonationRequest/AllDonationRequest";
+import ContentManagement from "../Pages/DashboardPages/AdminDashboard/ContentManagement/ContentManagement";
+import AddBlog from "../Pages/DashboardPages/AdminDashboard/ContentManagement/AddBlog";
 
 const Route = createBrowserRouter([
     {
@@ -71,6 +73,14 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/all-blood-donation-request',
                 element: <AllDonationRequest></AllDonationRequest>
+            },
+            {
+                path: '/dashboard/content-management',
+                element: <ContentManagement></ContentManagement>
+            },
+            {
+                path: '/dashboard/content-management/add-blog',
+                element: <AddBlog></AddBlog>
             }
         ]
     }

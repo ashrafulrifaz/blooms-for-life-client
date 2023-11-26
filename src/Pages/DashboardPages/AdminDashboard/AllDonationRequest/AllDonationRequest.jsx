@@ -35,8 +35,7 @@ const AllDonationRequest = () => {
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
     const totalPage = Math.ceil(currentData?.length / perPageItem)    
-    const pages = currentData ? [...Array(totalPage).keys()] : []
-    
+    const pages = currentData ? [...Array(totalPage).keys()] : []    
 
     const handleFiltering = e => {
         const filterValue = e.target.value;
