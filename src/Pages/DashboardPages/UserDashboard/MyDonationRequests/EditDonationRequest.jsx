@@ -9,9 +9,9 @@ import { useParams } from "react-router-dom";
 import useDonationRequests from "../../../../Hooks/useDonationRequests";
 
 const EditDonationRequest = () => {
-    const {user, districts, upazilas} = useContext(AuthContext)
+    const {districts, upazilas} = useContext(AuthContext)
     const [selectedDistrict, setSelectedDistrict] = useState(null)
-    const { register, handleSubmit, formState: { errors }, reset } = useForm()
+    const { register, handleSubmit } = useForm()
     const [startDate, setStartDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [updateLoading, setUpdateLoding] = useState(false)
@@ -61,11 +61,11 @@ const EditDonationRequest = () => {
                 <div className="grid grid-cols-2 gap-x-8 gap-y-5">                    
                     <div className="space-y-1">
                         <h3>Requester Name*</h3>
-                        <p className="capitalize font-medium">{user?.displayName}</p>
+                        <p className="capitalize font-medium">{requester_name}</p>
                     </div>
                     <div className="space-y-1">
                         <h3>Requester Email*</h3>
-                        <p className="font-medium">{user?.email}</p>
+                        <p className="font-medium">{requester_email}</p>
                     </div>
                     <div className="space-y-2">
                         <label>Recipient Name*</label>

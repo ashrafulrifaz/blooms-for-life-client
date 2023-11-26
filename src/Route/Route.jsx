@@ -11,6 +11,7 @@ import UserProfile from "../Pages/DashboardPages/UserDashboard/ProfilePage/UserP
 import CreateDonationRequest from "../Pages/DashboardPages/UserDashboard/CreateDonationRequest/CreateDonationRequest";
 import MyDonationRequests from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/MyDonationRequests";
 import EditDonationRequest from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/EditDonationRequest";
+import DonationRequestDetails from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/DonationRequestDetails";
 
 const Route = createBrowserRouter([
     {
@@ -56,6 +57,10 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/edit/:id',
                 element: <EditDonationRequest></EditDonationRequest>
+            },
+            {
+                path: '/dashboard/donation-request/:id',
+                element: <DonationRequestDetails></DonationRequestDetails>
             }
         ]
     }

@@ -48,7 +48,7 @@ const UserDonationCard = ({item, setCurrentStatus, currentStatus}) => {
             }
             <th className="space-y-3 text-center">
                 <div>
-                    <Link>
+                    <Link to={`/dashboard/donation-request/${_id}`}>
                         <a className="cursor-pointer text-[#39A7FF] border border-[#39A7FF] rounded-md py-1 px-2 capitalize hover:bg-[#39A7FF] hover:text-white transition-all text-xs">View</a>
                     </Link>
                 </div>
