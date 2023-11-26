@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 const UserDonationCard = ({item, setCurrentStatus, currentStatus}) => {
-    const {requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, status} = item
+    const {_id, requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, status} = item
     useEffect(() => {        
         setCurrentStatus('inprogress')
     }, [status, setCurrentStatus])
@@ -53,7 +53,7 @@ const UserDonationCard = ({item, setCurrentStatus, currentStatus}) => {
                     </Link>
                 </div>
                 <div>
-                    <Link>
+                    <Link to={`/dashboard/edit/${_id}`}>
                         <a className="cursor-pointer text-green-700 border border-green-700 rounded-md py-1 px-2 capitalize hover:bg-green-700 hover:text-white transition-all text-xs">Edit</a>
                     </Link>
                 </div>

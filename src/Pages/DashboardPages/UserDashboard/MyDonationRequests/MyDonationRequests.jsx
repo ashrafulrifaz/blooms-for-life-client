@@ -7,7 +7,7 @@ const MyDonationRequests = () => {
     const [currentStatus, setCurrentStatus] = useState(null)
     const [currentData, setCurrentData] = useState(data || [])
     const [currentPage, setCurrentPage] = useState(0)
-    const perPageItem = 5
+    const perPageItem = 4
 
     useEffect(() => {
         setCurrentData(data)
@@ -21,11 +21,10 @@ const MyDonationRequests = () => {
 
 
     // pagination calculation
-    const lastItemIndex = perPageItem * currentPage + 3;
+    const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
     const totalPage = Math.ceil(currentData?.length / perPageItem)    
     const pages = currentData ? [...Array(totalPage).keys()] : []
-    console.log(firstItemIndex, lastItemIndex);
     
 
     const handleFiltering = e => {
@@ -77,7 +76,10 @@ const MyDonationRequests = () => {
                         <tbody>
                             {
                                 currentData?.length > 0 &&
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>).slice(firstItemIndex, lastItemIndex)
+                                currentData?.length > 4 ? 
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>).slice(firstItemIndex + 3, lastItemIndex + 3)
+                                :
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>)
                             }
                         </tbody>
                     </table>
@@ -86,9 +88,10 @@ const MyDonationRequests = () => {
                         <p className="text-center py-5 text-xl capitalize font-second">no {currentStatus} data found</p>
                     }
                 </div>
-                <div className="pagination flex justify-center text-center gap-3">
+                    <p className="text-xs uppercase -mt-5">slide right to see full table</p>
+                <div className="pagination flex justify-center text-center gap-3 mt-5">
                     {
-                        currentData.length > 5 &&
+                        currentData?.length > 4 &&
                         pages.map(page => 
                         <a
                             className={currentPage === page ? 'selected' : undefined}

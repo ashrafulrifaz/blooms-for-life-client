@@ -35,7 +35,7 @@ const UserHomePage = () => {
                     </table>
                 </div>
                 {
-                    data.length > 3 && 
+                    data?.length > 3 && 
                     <div className="text-center">
                         <Link to="/dashboard/my-donation-requests">
                             <button>View My All Requests</button>

@@ -10,6 +10,7 @@ import UserHomePage from "../Pages/DashboardPages/UserDashboard/HomePage/UserHom
 import UserProfile from "../Pages/DashboardPages/UserDashboard/ProfilePage/UserProfile";
 import CreateDonationRequest from "../Pages/DashboardPages/UserDashboard/CreateDonationRequest/CreateDonationRequest";
 import MyDonationRequests from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/MyDonationRequests";
+import EditDonationRequest from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/EditDonationRequest";
 
 const Route = createBrowserRouter([
     {
@@ -51,6 +52,10 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/my-donation-requests',
                 element: <MyDonationRequests></MyDonationRequests>
+            },
+            {
+                path: '/dashboard/edit/:id',
+                element: <EditDonationRequest></EditDonationRequest>
             }
         ]
     }
