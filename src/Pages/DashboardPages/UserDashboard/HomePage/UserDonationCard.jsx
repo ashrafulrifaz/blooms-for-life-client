@@ -31,24 +31,24 @@ const UserDonationCard = ({item, refetch}) => {
 
     const handleDone = () => {
         axiosSecure.put(`/donation-requests/${_id}`, {status: 'done'})
-                .then(() => {
-                    refetch()
-                    Swal.fire({
-                        title: "Your Donation Request Approved",
-                        icon: "success"
-                        })
-                })
+            .then(() => {
+                refetch()
+                Swal.fire({
+                    title: "Your Donation Request Approved",
+                    icon: "success"
+                    })
+            })
     }
 
     const handleCancel = () => {
         axiosSecure.put(`/donation-requests/${_id}`, {status: 'canceled'})
-                .then(() => {
-                    refetch()
-                    Swal.fire({
-                        title: "Your Donation Request Approved",
-                        icon: "success"
-                        })
-                })
+            .then(() => {
+                refetch()
+                Swal.fire({
+                    title: "Your Donation Request Approved",
+                    icon: "success"
+                    })
+            })
     }
 
     return (

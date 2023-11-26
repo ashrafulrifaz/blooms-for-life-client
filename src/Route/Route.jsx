@@ -13,6 +13,7 @@ import EditDonationRequest from "../Pages/DashboardPages/UserDashboard/MyDonatio
 import DonationRequestDetails from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/DonationRequestDetails";
 import DashboardHome from "../Pages/DashboardPages/DashboardHome/DashboardHome";
 import AllUsers from "../Pages/DashboardPages/AdminDashboard/AllUsers/AllUsers";
+import AllDonationRequest from "../Pages/DashboardPages/AdminDashboard/AllDonationRequest/AllDonationRequest";
 
 const Route = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/all-users',
                 element: <AllUsers></AllUsers>
+            },
+            {
+                path: '/dashboard/all-blood-donation-request',
+                element: <AllDonationRequest></AllDonationRequest>
             }
         ]
     }

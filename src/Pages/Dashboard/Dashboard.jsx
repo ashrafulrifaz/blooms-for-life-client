@@ -50,7 +50,7 @@ const Dashboard = () => {
                         </NavLink>
                     </li>
                     <li>                            
-                        <NavLink to="/dashboard/all-blood-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                        <NavLink to="/dashboard/all-blood-donation-request" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
                             <CiCircleList className="mt-[2px] text-lg" />
                             <span className="capitalize font-main font-medium text-[15px]">All Blood Donation Request</span>
                         </NavLink>
