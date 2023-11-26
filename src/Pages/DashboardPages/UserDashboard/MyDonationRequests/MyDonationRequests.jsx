@@ -4,12 +4,11 @@ import UserDonationCard from "../HomePage/UserDonationCard";
 
 const MyDonationRequests = () => {
     const {data, user, refetch} = useDonationRequests()
-    const [currentStatus, setCurrentStatus] = useState(null)
     const [currentData, setCurrentData] = useState(data || [])
     const [currentPage, setCurrentPage] = useState(0)
     const perPageItem = 4
-
-    console.log(refetch);
+    
+    const isInProgress = data?.some(item => item.status == 'inprogress')
 
     useEffect(() => {
         setCurrentData(data)
@@ -31,7 +30,6 @@ const MyDonationRequests = () => {
 
     const handleFiltering = e => {
         const filterValue = e.target.value;
-        setCurrentStatus(filterValue)
         setCurrentPage(0)
         if(filterValue === 'all'){
             setCurrentData(data)
@@ -69,25 +67,25 @@ const MyDonationRequests = () => {
                                 <th>recipient name</th>
                                 <th>recipient location</th>
                                 <th>Date & Time</th>
-                                { currentStatus === 'inprogress' && <th>donor info</th> }
                                 <th>Status</th>
-                                { currentStatus === 'inprogress' && <th>Update Status</th> }
                                 <th>Action</th>
+                                { isInProgress && <th>donor info</th> }
+                                { isInProgress && <th>Update Status</th> }
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 currentData?.length > 0 &&
                                 currentData?.length > 4 ? 
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} refetch={refetch}></UserDonationCard>).slice(firstItemIndex + 3, lastItemIndex + 3)
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} refetch={refetch}></UserDonationCard>).slice(firstItemIndex + 4, lastItemIndex + 4)
                                 :
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} refetch={refetch}></UserDonationCard>)
+                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} refetch={refetch}></UserDonationCard>)
                             }
                         </tbody>
                     </table>
                     {
                         currentData?.length === 0 &&
-                        <p className="text-center py-5 text-xl capitalize font-second">no {currentStatus} data found</p>
+                        <p className="text-center py-5 text-xl capitalize font-second">no {isInProgress} data found</p>
                     }
                 </div>
                 {currentData?.length > 0 && <p className="text-xs uppercase -mt-5">slide right to see full table</p>}

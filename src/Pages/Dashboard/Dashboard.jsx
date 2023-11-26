@@ -1,6 +1,4 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-// import useAdmin from "../../Hooks/useAdmin";
-import { useState } from "react";
 import { RxDashboard } from "react-icons/rx";
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
 import { IoCreateOutline } from "react-icons/io5";
@@ -8,9 +6,10 @@ import { FiUsers } from "react-icons/fi";
 import { CiCircleList } from "react-icons/ci";
 import { MdContentCopy } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import useUserData from "../../Hooks/useUserData";
 
 const Dashboard = () => {
-    const [isAdmin] = useState('donor')
+    const {userRole} = useUserData()
 
     return (
         <div className="flex min-h-screen bg-slate-100 dashboard">
@@ -42,8 +41,8 @@ const Dashboard = () => {
                         </NavLink>
                     </li>
                 </ul>
-                {/* { isAdmin === 'admin'? 
-                <ul className="space-y-2">
+                { userRole === 'admin' ? 
+                <ul className="space-y-2 mt-1">
                     <li>
                         <NavLink to="/dashboard/all-users" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
                             <FiUsers className="mt-[2px] text-lg" />
@@ -51,13 +50,13 @@ const Dashboard = () => {
                         </NavLink>
                     </li>
                     <li>                            
-                        <NavLink to="/dashboard/my-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                        <NavLink to="/dashboard/all-blood-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
                             <CiCircleList className="mt-[2px] text-lg" />
                             <span className="capitalize font-main font-medium text-[15px]">All Blood Donation Request</span>
                         </NavLink>
                     </li>
                     <li>                            
-                        <NavLink to="/dashboard/my-donation-requests" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
+                        <NavLink to="/dashboard/content-management" className="flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg">
                             <MdContentCopy className="mt-[2px] text-lg" />
                             <span className="capitalize font-main font-medium text-[15px]">Content Management</span>
                         </NavLink>
@@ -66,7 +65,7 @@ const Dashboard = () => {
                 :
                 <div className="space-y-2">
                     
-                </div>} */}
+                </div>}
             </div>
             <div className="w-[75%] p-10">
                 <Outlet></Outlet>

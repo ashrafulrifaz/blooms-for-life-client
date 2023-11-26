@@ -5,6 +5,7 @@ import { AuthContext } from '../../Provider/Provider';
 import { Link, useNavigate } from 'react-router-dom';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { updateProfile } from 'firebase/auth';
+import axios from 'axios';
 
 const Registration = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null)
@@ -32,7 +33,7 @@ const Registration = () => {
         setPassError(null)
 
         const imageFile = {image: data.image[0]}
-        const res = await axiosPublic.post(image_hosting_url, imageFile, {
+        const res = await axios.post(image_hosting_url, imageFile, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }

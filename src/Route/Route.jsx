@@ -6,12 +6,13 @@ import Registration from "../Pages/Registration/Registration";
 import Login from "../Pages/Login/Login";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
-import UserHomePage from "../Pages/DashboardPages/UserDashboard/HomePage/UserHomePage";
 import UserProfile from "../Pages/DashboardPages/UserDashboard/ProfilePage/UserProfile";
 import CreateDonationRequest from "../Pages/DashboardPages/UserDashboard/CreateDonationRequest/CreateDonationRequest";
 import MyDonationRequests from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/MyDonationRequests";
 import EditDonationRequest from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/EditDonationRequest";
 import DonationRequestDetails from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/DonationRequestDetails";
+import DashboardHome from "../Pages/DashboardPages/DashboardHome/DashboardHome";
+import AllUsers from "../Pages/DashboardPages/AdminDashboard/AllUsers/AllUsers";
 
 const Route = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ const Route = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <UserHomePage></UserHomePage>
+                element: <DashboardHome></DashboardHome>
             },
             {
                 path: '/dashboard/profile',
@@ -61,6 +62,10 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/donation-request/:id',
                 element: <DonationRequestDetails></DonationRequestDetails>
+            },
+            {
+                path: '/dashboard/all-users',
+                element: <AllUsers></AllUsers>
             }
         ]
     }

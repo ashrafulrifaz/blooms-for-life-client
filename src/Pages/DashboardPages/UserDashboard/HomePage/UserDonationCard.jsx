@@ -1,39 +1,54 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 
-const UserDonationCard = ({item, setCurrentStatus, currentStatus, refetch}) => {
+const UserDonationCard = ({item, refetch}) => {
     const {_id, requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, status} = item
     const axiosSecure = useAxiosSecure()
-    console.log(refetch);
-    
-    useEffect(() => {        
-        setCurrentStatus('inprogress')
-    }, [status, setCurrentStatus])
 
     const handleDelete = () => {
-          Swal.fire({
-            title: "Are you sure?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.delete(`/donation-requests/${_id}`)
+        Swal.fire({
+        title: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            axiosSecure.delete(`/donation-requests/${_id}`)
+            .then(() => {
+                refetch()
+                Swal.fire({
+                    title: "Your Request has been deleted.",
+                    icon: "success"
+                    })
+            })            
+        }
+        });
+    }
+
+    const handleDone = () => {
+        axiosSecure.put(`/donation-requests/${_id}`, {status: 'done'})
                 .then(() => {
                     refetch()
                     Swal.fire({
-                        title: "Your Request has been deleted.",
+                        title: "Your Donation Request Approved",
                         icon: "success"
-                      })
+                        })
                 })
-              
-            }
-          });
+    }
+
+    const handleCancel = () => {
+        axiosSecure.put(`/donation-requests/${_id}`, {status: 'canceled'})
+                .then(() => {
+                    refetch()
+                    Swal.fire({
+                        title: "Your Donation Request Approved",
+                        icon: "success"
+                        })
+                })
     }
 
     return (
@@ -49,31 +64,9 @@ const UserDonationCard = ({item, setCurrentStatus, currentStatus, refetch}) => {
                 <h3 className="font-medium text-[15px]">Date: {date}</h3>
                 <h3 className="font-medium text-[15px]">Time: {time}</h3>
             </th>
-            {
-                currentStatus === 'inprogress' && 
-                <th>
-                    <h3 className="font-medium text-[15px]">Name: {requester_name}</h3>
-                    <h3 className="font-medium text-[15px]">Email: {requester_email}</h3>
-                </th>
-            }
             <th>
                 <h3 className="font-medium text-[15px]">{status}</h3>
             </th>
-            {
-                currentStatus === 'inprogress' &&
-                <th className="space-y-3 text-center">
-                    <div>
-                        <Link>
-                            <a className="cursor-pointer text-green-700 border border-green-700 rounded-md py-1 px-2 capitalize hover:bg-green-700 hover:text-white transition-all text-xs">Done</a>
-                        </Link>
-                    </div>
-                    <div>
-                        <Link>
-                            <a className="cursor-pointer text-red-500 border border-red-500 rounded-md py-1 px-2 capitalize hover:bg-red-500 hover:text-white transition-all text-xs">Cancel</a>
-                        </Link>
-                    </div>
-                </th>
-            }
             <th className="space-y-3 text-center">
                 <div>
                     <Link to={`/dashboard/donation-request/${_id}`}>
@@ -91,6 +84,24 @@ const UserDonationCard = ({item, setCurrentStatus, currentStatus, refetch}) => {
                     </Link>
                 </div>
             </th>
+            {
+                status === 'inprogress' && 
+                <th>
+                    <h3 className="font-medium text-[15px]">Name: {requester_name}</h3>
+                    <h3 className="font-medium text-[15px]">Email: {requester_email}</h3>
+                </th>
+            }
+            {
+                status === 'inprogress' &&
+                <th className="space-y-3 text-center">
+                    <div>
+                        <a onClick={handleDone} className="cursor-pointer text-green-700 border border-green-700 rounded-md py-1 px-2 capitalize hover:bg-green-700 hover:text-white transition-all text-xs">Done</a>
+                    </div>
+                    <div>
+                        <a onClick={handleCancel} className="cursor-pointer text-red-500 border border-red-500 rounded-md py-1 px-2 capitalize hover:bg-red-500 hover:text-white transition-all text-xs">Cancel</a>
+                    </div>
+                </th>
+            }
         </tr>
     );
 };

@@ -4,26 +4,18 @@ import { useContext, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
-import useAuth from "../../../../Hooks/useAuth";
 import { AuthContext } from "../../../../Provider/Provider";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import useUserData from "../../../../Hooks/useUserData";
 
 const UserProfile = () => {
-    const {user} = useAuth()
+    const {data} = useUserData()
     const axiosSecure = useAxiosSecure()
     const [isEdit, setIsEdit] = useState(false)
     const [selectedDistrict, setSelectedDistrict] = useState(null)
     const {districts, upazilas, auth, setUser} = useContext(AuthContext)
     const [updateLoading, setUpdateLoding] = useState(false)
     const { register, handleSubmit } = useForm()
-
-    const { data } = useQuery({
-        queryKey: ['single_user'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/users/${user?.email}`)
-            return res.data
-        }
-    })
     const {_id, name, email, image, blood_group, district, upazila} = data || {}
     const selectedDistrictId = districts.find(district => district.name === selectedDistrict) || {}
     const currentUpazilas = upazilas.filter(upazila => selectedDistrictId.id === upazila.district_id) || []

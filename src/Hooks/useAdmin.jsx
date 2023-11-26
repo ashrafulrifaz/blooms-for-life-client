@@ -1,3 +1,4 @@
+// import { useQuery } from "@tanstack/react-query";
 // import useAuth from "./useAuth";
 // import useAxiosSecure from "./useAxiosSecure";
 
@@ -15,6 +16,12 @@
 
 //     return [isAdmin, isAdminPending]
     
-// };
+// // };
+
+// const useAdmin = () => {
+//     const admin = 'admin';
+
+//     return [admin]
+// }
 
 // export default useAdmin;

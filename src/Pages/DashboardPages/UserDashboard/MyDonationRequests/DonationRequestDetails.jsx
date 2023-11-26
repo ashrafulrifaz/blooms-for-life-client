@@ -1,12 +1,36 @@
 import { useParams } from "react-router-dom";
 import useDonationRequests from "../../../../Hooks/useDonationRequests";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 
 const DonationRequestDetails = () => {
     const {id} = useParams()
     const {data} = useDonationRequests()
     const currentData = data?.find(item => item._id === id)
-    const {requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, hospital, full_address, details} = currentData || {}
+    const {requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, hospital, full_address, details, status, _id} = currentData || {}
+    const axiosSecure = useAxiosSecure()
+
+    const handleDonate = () => {
+        Swal.fire({
+            html: `<p>Donor Name: ${requester_name}</p><p>Donor Email: ${requester_email}</p>`,
+            showCancelButton: true,
+            confirmButtonText: "Yes, Donate",
+            cancelButtonText: "No!",
+            reverseButtons: true
+            }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.put(`/donation-requests/${_id}`, {status: 'inprogress'})
+                .then(() => {
+                    Swal.fire({
+                        title: "Your Donation Request Approved",
+                        icon: "success"
+                        })
+                })
+                
+            }
+            });
+    }
 
     return (
         <div className="p-10 bg-white rounded-lg donation_request">
@@ -53,9 +77,12 @@ const DonationRequestDetails = () => {
                     </div>                    
                 </div>
                 <div className="space-y-2">
-                        <h3>Donation Details</h3>
-                        <p className="font-medium">{details}</p>
+                    <h3>Donation Details</h3>
+                    <p className="font-medium">{details}</p>
                 </div>
+                {
+                    status === 'pending' && <button onClick={handleDonate}>Donate</button>
+                }
             </div>
         </div>
     );

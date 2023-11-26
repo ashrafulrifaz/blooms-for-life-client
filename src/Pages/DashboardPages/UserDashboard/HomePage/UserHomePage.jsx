@@ -1,13 +1,10 @@
-// import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import useDonationRequests from "../../../../Hooks/useDonationRequests";
 import UserDonationCard from "./UserDonationCard";
 import { Link } from "react-router-dom";
 
 const UserHomePage = () => {
-    const {data, isPending, user} = useDonationRequests()
-    const [currentStatus, setCurrentStatus] = useState(null)
-    console.log(currentStatus);
+    const {data, isPending, user, refetch} = useDonationRequests()
+    const isInProgress = data?.some(item => item.status == 'inprogress')
 
     return (
         <div className="user_home">
@@ -21,15 +18,15 @@ const UserHomePage = () => {
                                 <th>recipient name</th>
                                 <th>recipient location</th>
                                 <th>Date & Time</th>
-                                { currentStatus === 'inprogress' && <th>donor info</th> }
                                 <th>Status</th>
-                                { currentStatus === 'inprogress' && <th>Update Status</th> }
                                 <th>Action</th>
+                                { isInProgress && <th>donor info</th> }
+                                { isInProgress && <th>Update Status</th> }
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                data && data.map((item, idx) => <UserDonationCard key={idx} item={item} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus}></UserDonationCard>).slice(0, 3)
+                                data && data.map((item, idx) => <UserDonationCard key={idx} item={item} refetch={refetch}></UserDonationCard>).slice(0, 3)
                             }
                         </tbody>
                     </table>
