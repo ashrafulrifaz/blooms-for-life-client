@@ -16,6 +16,7 @@ import AllUsers from "../Pages/DashboardPages/AdminDashboard/AllUsers/AllUsers";
 import AllDonationRequest from "../Pages/DashboardPages/AdminDashboard/AllDonationRequest/AllDonationRequest";
 import ContentManagement from "../Pages/DashboardPages/AdminDashboard/ContentManagement/ContentManagement";
 import AddBlog from "../Pages/DashboardPages/AdminDashboard/ContentManagement/AddBlog";
+import EditBlog from "../Pages/DashboardPages/AdminDashboard/ContentManagement/EditBlog";
 
 const Route = createBrowserRouter([
     {
@@ -81,6 +82,10 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/content-management/add-blog',
                 element: <AddBlog></AddBlog>
+            },
+            {
+                path: '/dashboard/edit-blog/:id',
+                element: <EditBlog></EditBlog>
             }
         ]
     }

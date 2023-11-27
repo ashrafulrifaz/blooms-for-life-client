@@ -1,15 +1,12 @@
-import { useContext, useMemo, useRef, useState } from "react";
-import { AuthContext } from "../../../../Provider/Provider";
+import { useMemo, useRef, useState } from "react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 
 const AddBlog = ({placeholder}) => {
-    const [selectedDistrict, setSelectedDistrict] = useState(null)
     const [loadingBlog, setLoadingBlog] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
-    const {districts, upazilas} = useContext(AuthContext)
     const axiosSecure = useAxiosSecure()
 	const editor = useRef(null);
 	const [content, setContent] = useState('');

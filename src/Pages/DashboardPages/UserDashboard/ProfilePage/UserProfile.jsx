@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { CiEdit } from "react-icons/ci";
@@ -7,9 +6,11 @@ import axios from "axios";
 import { AuthContext } from "../../../../Provider/Provider";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useUserData from "../../../../Hooks/useUserData";
+import useAuth from "../../../../Hooks/useAuth";
 
 const UserProfile = () => {
     const {data} = useUserData()
+    const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
     const [isEdit, setIsEdit] = useState(false)
     const [selectedDistrict, setSelectedDistrict] = useState(null)

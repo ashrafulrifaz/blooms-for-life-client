@@ -1,19 +1,11 @@
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
+import useBlogData from "../../../../Hooks/useBlogData";
 
 const ContentManagement = () => {
-    const axiosSecure = useAxiosSecure()
-    const { data, isPending, refetch } = useQuery({
-        queryKey: ['all_blogs'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/blogs`)
-            return res.data
-        }
-    })
+    const {data, refetch} = useBlogData()
     const [currentData, setCurrentData] = useState(data || [])
     const [currentPage, setCurrentPage] = useState(0)
     const perPageItem = 4
@@ -21,7 +13,6 @@ const ContentManagement = () => {
     useEffect(() => {
         setCurrentData(data)
     }, [data]) 
-    console.log(data);
 
     // filtering data
     const draftBlog = data?.filter(item => item.status === 'draft')
@@ -89,7 +80,6 @@ const ContentManagement = () => {
                     <p className="text-center py-5 text-xl capitalize font-second">no blog found</p>
                 }
             </div>
-            {currentData?.length > 0 && <p className="text-xs uppercase -mt-5">slide right to see full table</p>}
             <div className="pagination flex justify-center text-center gap-3 mt-5">
                 {
                     currentData?.length > 4 &&
