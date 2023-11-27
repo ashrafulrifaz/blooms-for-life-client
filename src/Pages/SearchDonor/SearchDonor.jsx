@@ -42,7 +42,7 @@ const SearchDonor = () => {
 
     
     const [currentPage, setCurrentPage] = useState(0)
-    const perPageItem = 4
+    const perPageItem = 5
 
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
@@ -115,8 +115,8 @@ const SearchDonor = () => {
                         <tbody>
                             {
                                 currentData?.length > 0 &&
-                                currentData?.length > 4 ? 
-                                currentData && currentData?.map((user, idx) => <SearchCard key={idx} user={user}></SearchCard>).slice(firstItemIndex + 4, lastItemIndex + 4)
+                                currentData?.length > 5 ? 
+                                currentData && currentData?.map((user, idx) => <SearchCard key={idx} user={user}></SearchCard>).slice(firstItemIndex + 5, lastItemIndex + 5)
                                 :
                                 currentData && currentData?.map((user, idx) => <SearchCard key={idx} user={user}></SearchCard>)
                             }
@@ -125,7 +125,7 @@ const SearchDonor = () => {
                 </div>
                 <div className="pagination flex justify-center text-center gap-3 mt-5">
                     {
-                        currentData?.length > 4 &&
+                        currentData?.length > 5 &&
                         pages.map(page => 
                         <a
                             className={currentPage === page ? 'selected' : undefined}

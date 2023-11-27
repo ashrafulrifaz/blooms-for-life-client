@@ -1,6 +1,6 @@
 import useUserData from "../../../Hooks/useUserData";
 import AdminHome from "../AdminDashboard/AdminHome/AdminHome";
-// import UserHomePage from "../UserDashboard/HomePage/UserHomePage";
+import UserHomePage from "../UserDashboard/HomePage/UserHomePage";
 
 const DashboardHome = () => {
     const {userRole, isPending} = useUserData()
@@ -11,12 +11,9 @@ const DashboardHome = () => {
 
     return (
         <div>
-            {/* {userRole === 'admin' ? (
-                <AdminHome />
-            ) : userRole === 'volunteer' ? (
-                null
-            ) : userRole === 'donor' && <UserHomePage />} */}
-            <AdminHome />
+            {
+                userRole !== 'donor' ? <AdminHome></AdminHome> : <UserHomePage></UserHomePage>
+            }
         </div>
     );
 };

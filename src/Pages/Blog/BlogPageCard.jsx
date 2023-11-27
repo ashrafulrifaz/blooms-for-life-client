@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 
 const BlogPageCard = ({post}) => {
-    const {thumbnail_image, title, content} = post || {}
+    const {thumbnail_image, title, content, _id} = post || {}
     const description = content.slice(0, 165).replace('</', '').concat('....')
 
     return (        
@@ -9,7 +10,9 @@ const BlogPageCard = ({post}) => {
             <div className="p-4 border border-slate-300 border-t-0 rounded-b-lg space-y-2.5">
                 <h3 className="text-xl">{title}</h3>
                 <p dangerouslySetInnerHTML={{__html: description}} className="font-medium" />
-                <button>Read More</button>
+                <Link to={`/blog/${_id}`}>
+                    <button className="mt-3 text-sm py-1.5 px-3">Read More</button>
+                </Link>
             </div>
         </div>
     );

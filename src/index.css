@@ -71,7 +71,8 @@ button {
 .all_users .wrapper,
 .blog .wrapper,
 .my_donation .wrapper,    
-.donation_requests .wrapper {    
+.donation_requests .wrapper, 
+.search .wrapper {    
   overflow: auto;
   border-radius: 8px;
   border: 1px solid #D7EDFF

@@ -21,6 +21,7 @@ import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import BloodDonationRequestDetails from "../Pages/DonationRequests/BloodDonationRequestDetails";
 import Blog from "../Pages/Blog/Blog";
 import SearchDonor from "../Pages/SearchDonor/SearchDonor";
+import BlogDetails from "../Pages/Blog/BlogDetails";
 
 const Route = createBrowserRouter([
     {
@@ -53,13 +54,17 @@ const Route = createBrowserRouter([
                 element: <Blog></Blog>
             },
             {
+                path: '/blog/:id',
+                element: <BlogDetails></BlogDetails>
+            },
+            {
                 path: '/search-donor',
                 element: <SearchDonor></SearchDonor>
             }
         ]
     },
     {
-        path: '/dashboard',
+        path: 'dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
