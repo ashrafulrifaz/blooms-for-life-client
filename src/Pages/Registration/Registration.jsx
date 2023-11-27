@@ -91,7 +91,7 @@ const Registration = () => {
                         <div className='space-y-2'>
                             <label>Blood Group*</label>
                             <select {...register("blood", { required: true })}>
-                                <option value="Blood Group" selected disabled>Blood Group</option>                                
+                                <option value='' selected disabled>Blood Group</option>                                
                                 <option value="A+">A+</option>                                
                                 <option value="A-">A-</option>                                
                                 <option value="B+">B+</option>                                
@@ -113,7 +113,7 @@ const Registration = () => {
                         <div className='space-y-2'>
                             <label>District*</label>
                             <select {...register("district", { required: true })} onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
-                                <option value="District" selected disabled>District</option>
+                                <option value='' selected disabled>District</option>
                                 {
                                     districts && districts.map(district => 
                                     <option key={district.id} value={district.name}>{district.name}</option>)
@@ -124,7 +124,7 @@ const Registration = () => {
                         <div className='space-y-2'>
                             <label>Upazila*</label>
                            <select {...register("upazila", { required: true })}>
-                                <option value="Upazila" selected disabled>Upazila</option>
+                                <option value='' selected disabled>Upazila</option>
                                 {
                                     currentUpazilas.length > 0 ? 
                                     currentUpazilas.map(upazila => 

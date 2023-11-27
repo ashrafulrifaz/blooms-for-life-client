@@ -20,6 +20,7 @@ import EditBlog from "../Pages/DashboardPages/AdminDashboard/ContentManagement/E
 import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import BloodDonationRequestDetails from "../Pages/DonationRequests/BloodDonationRequestDetails";
 import Blog from "../Pages/Blog/Blog";
+import SearchDonor from "../Pages/SearchDonor/SearchDonor";
 
 const Route = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const Route = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/search-donor',
+                element: <SearchDonor></SearchDonor>
             }
         ]
     },

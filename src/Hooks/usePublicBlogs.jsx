@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "./useAxiosPublic";
+import axios from "axios";
 
 const usePublicBlogs = () => {
-    const axiosPublic = useAxiosPublic()
     const { data, isPending } = useQuery({
         queryKey: ['single_user'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/blogs/published')
+            const res = await axios.get('http://localhost:5000/blogs/published')
             return res.data
         }
     })

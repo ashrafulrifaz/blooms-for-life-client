@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import app from "../firebase.config";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import axios from "axios";
 
 export const AuthContext = createContext(null)
 
@@ -14,10 +15,10 @@ const Provider = ({children}) => {
     const axiosPublic = useAxiosPublic()
 
     useEffect(() => {
-        axiosPublic.get('/districts')
+        axios.get('http://localhost:5000/districts')
         .then(res => setDistrict(res.data))
 
-        axiosPublic.get(`/upazilas`)
+        axios.get(`http://localhost:5000/upazilas`)
         .then(res => setUpazilas(res.data))
 
 

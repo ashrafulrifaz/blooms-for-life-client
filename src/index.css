@@ -50,8 +50,12 @@ button {
     @apply block border border-slate-200 rounded-md py-2 px-4 font-medium focus:outline-none w-full focus:border-second focus:border-opacity-30
 }
 
-.profile input,
-.profile select{
+.search select,
+.search input {
+    @apply focus:outline-none border-b-2 border-primary py-1.5 border-opacity-40
+}
+.profile select,
+.profile input{
     @apply block w-full disabled:bg-white disabled:text-[#151515]
 }
 
