@@ -17,6 +17,9 @@ import AllDonationRequest from "../Pages/DashboardPages/AdminDashboard/AllDonati
 import ContentManagement from "../Pages/DashboardPages/AdminDashboard/ContentManagement/ContentManagement";
 import AddBlog from "../Pages/DashboardPages/AdminDashboard/ContentManagement/AddBlog";
 import EditBlog from "../Pages/DashboardPages/AdminDashboard/ContentManagement/EditBlog";
+import DonationRequests from "../Pages/DonationRequests/DonationRequests";
+import BloodDonationRequestDetails from "../Pages/DonationRequests/BloodDonationRequestDetails";
+import Blog from "../Pages/Blog/Blog";
 
 const Route = createBrowserRouter([
     {
@@ -35,6 +38,18 @@ const Route = createBrowserRouter([
             {
                 path: '/registration',
                 element: <Registration></Registration>
+            },
+            {
+                path: '/blood-donation-requests',
+                element: <DonationRequests></DonationRequests>
+            },
+            {
+                path: '/blood-donation-request/:id',
+                element: <PrivateRoute><BloodDonationRequestDetails></BloodDonationRequestDetails></PrivateRoute>
+            },
+            {
+                path: '/blog',
+                element: <Blog></Blog>
             }
         ]
     },

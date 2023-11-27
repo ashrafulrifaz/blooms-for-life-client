@@ -21,7 +21,7 @@ const EditBlog = ({placeholder}) => {
     const config = useMemo(
 		() => ({
             readonly: false,
-            placeholder: placeholder || content
+            placeholder: placeholder || content || ''
         }),
         [placeholder, content]
 	);

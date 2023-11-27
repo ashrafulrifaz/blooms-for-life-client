@@ -34,7 +34,7 @@ const DonationRequestDetails = () => {
 
     return (
         <div className="p-10 bg-white rounded-lg donation_request">
-            <h2 className="font-second text-xl">Edit Your Donation Request</h2>
+            <h2 className="font-second text-xl">Donation Request Details</h2>
             <div className="mt-8 space-y-4">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-5">                    
                     <div className="space-y-">

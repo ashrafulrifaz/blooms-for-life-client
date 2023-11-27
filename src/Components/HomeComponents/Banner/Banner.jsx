@@ -1,7 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bannerImg from '../../../assets/banner.png'
+import useAuth from '../../../Hooks/useAuth';
 
 const Banner = () => {
+    const {user} = useAuth()
+    const navigate = useNavigate()
+
+    const handleNewDonor = () => {
+        if(user){
+            return console.log('you already a donor');
+        } 
+        navigate('/registration')
+    }
 
     return (
         <div className="min-h-screen w-full grid grid-cols-2 gap-6 items-center" id='banner'>
@@ -9,9 +19,7 @@ const Banner = () => {
                 <p className='capitalize text-lg'>donate blood, save life</p>
                 <h2 className='uppercase text-5xl leading-normal'>your <span className='text-primary'>blood</span> can bring smile in other person face</h2>
                 <div className="flex gap-3">
-                    <Link to="/registration">
-                        <button style={{border: '1px solid #FF4F5A'}} className='donor_button'>Join as a Donor</button>
-                    </Link>
+                    <button onClick={handleNewDonor} style={{border: '1px solid #FF4F5A'}} className='donor_button'>Join as a Donor</button>
                     <Link to="/search-donor">
                         <button style={{border: '1px solid #FF4F5A'}} className='search_button'>Search Donor</button>
                     </Link>
