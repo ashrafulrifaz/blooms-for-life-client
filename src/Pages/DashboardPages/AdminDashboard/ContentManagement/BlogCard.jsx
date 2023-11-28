@@ -37,7 +37,8 @@ const BlogCard = ({item, refetch}) => {
                 <img src={thumbnail_image} className="w-40 h-auto rounded-xl" alt="" />
             </th>
             <th>
-                <h3 className="font-medium text-[15px]">{title}</h3>
+                <h3 className="font-medium text-[15px] md:hidden">{title.slice(0, 30)}...</h3>
+                <h3 className="font-medium text-[15px] hidden md:block">{title}</h3>
             </th>
             <th>
                 <h3 className={`font-medium text-[15px] ${status === 'draft' ? 'text-primary' : 'text-green-600'}`}>{status}</h3>

@@ -69,7 +69,7 @@ const Route = createBrowserRouter([
         ]
     },
     {
-        path: 'dashboard',
+        path: '/dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [

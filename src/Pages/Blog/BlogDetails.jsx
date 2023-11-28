@@ -8,8 +8,8 @@ const BlogDetails = () => {
     const {thumbnail_image, title, content} = currentBlog || {}
 
     return (
-        <div className="py-8">
-            <img src={thumbnail_image} alt="" className="w-full h-96 rounded-lg" />
+        <div className="py-8 max-w-[90%] lg:max-w-[1150px] mx-auto">
+            <img src={thumbnail_image} alt="" className="w-full h-auto lg:h-96 rounded-lg" />
             <h3 className="text-2xl mt-6 mb-4">{title}</h3>
             <p dangerouslySetInnerHTML={{__html: content}} className="font-medium" />
         </div>

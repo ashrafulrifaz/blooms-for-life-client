@@ -49,7 +49,7 @@ const FundingCard = ({image, title, description, donation_id}) => {
                 <p className='font-medium'>{description}</p>
                 <div className="mt-3 flex items-center justify-between">
                     <button onClick={handleDonation}>Donate</button>
-                    <p className='text-primary'>Total Raised - ${100}</p>
+                    <p className='text-primary'>Total Raised - ${}</p>
                 </div>
             </div>
         </div>

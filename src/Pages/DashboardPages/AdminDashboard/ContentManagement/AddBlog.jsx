@@ -56,7 +56,7 @@ const AddBlog = ({placeholder}) => {
     }
 
     return (
-        <div className="bg-white p-10 rounded-lg add_blog">
+        <div className="bg-white p-4 md:p-10 rounded-lg add_blog">
             <h2 className="font-second text-xl">Add a New Blog</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 py-10'>
                 <div className='space-y-2'>
@@ -66,7 +66,7 @@ const AddBlog = ({placeholder}) => {
                 </div>   
                 <div className='space-y-2'>
                     <label>Thumbnail Image*</label>
-                    <input {...register("image", { required: true })} type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
+                    <input {...register("image", { required: true })} type="file" accept=".jpg, .jpeg, .png, .webp" style={{border: 'none', padding: '5px'}} />
                     {errors.image && <span className='text-red-500 font-medium text-sm'>Image is required</span>} 
                 </div>   
                 <div className='space-y-2'>

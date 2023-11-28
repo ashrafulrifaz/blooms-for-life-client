@@ -19,7 +19,7 @@ const AdminHome = () => {
         <div>
             <h2 className="font-second text-2xl">Statistics</h2>
             <div className="py-5">
-                <div className="grid grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div className="bg-white p-5 rounded-lg drop-shadow-md text-center hover:drop-shadow-xl transition-all">
                         <img src={totalUser} className="w-10 mx-auto text-4xl"/>
                         <h3 className="text-5xl mt-4 mb-2">{data?.totalUser}</h3>

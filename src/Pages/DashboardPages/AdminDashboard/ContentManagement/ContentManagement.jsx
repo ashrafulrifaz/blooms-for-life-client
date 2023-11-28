@@ -22,7 +22,7 @@ const ContentManagement = () => {
     // pagination calculation
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
-    const totalPage = Math.ceil(currentData?.length / perPageItem)    
+    const totalPage = Math.ceil(currentData?.length / perPageItem) || 0    
     const pages = currentData ? [...Array(totalPage).keys()] : []
     
 
@@ -41,7 +41,7 @@ const ContentManagement = () => {
     }
     
     return (
-        <div className="p-10 bg-white rounded-lg blog">
+        <div className="p-4 md:p-10 bg-white rounded-lg blog">
             <div className="flex justify-between">
                 <select onChange={handleFiltering} name="filter" className="capitalize border border-slate-300 rounded-lg focus:outline-none py-1 px-2">
                     <option value="all">all</option>

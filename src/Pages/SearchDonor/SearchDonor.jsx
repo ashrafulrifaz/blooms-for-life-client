@@ -46,7 +46,7 @@ const SearchDonor = () => {
 
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
-    const totalPage = Math.ceil(currentData?.length / perPageItem)    
+    const totalPage = Math.ceil(currentData?.length / perPageItem) || 0    
     const pages = currentData ? [...Array(totalPage).keys()] : []
 
     return (

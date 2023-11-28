@@ -15,36 +15,44 @@ const Blog = () => {
 
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
-    const totalPage = Math.ceil(currentData?.length / perPageItem)    
+    const totalPage = Math.ceil(currentData?.length / perPageItem) || 0
     const pages = currentData ? [...Array(totalPage).keys()] : []
 
     return (
-        <div className="py-12 max-w-[1150px] mx-auto">
-            <div className="grid grid-cols-3 gap-10">
-                    
-                {
-                    currentData?.length > 0 &&
-                    currentData?.length > 6 ? 
-                    currentData && currentData?.map((post, idx) => <BlogPageCard key={idx} post={post}></BlogPageCard>).slice(firstItemIndex + 6, lastItemIndex + 6)
-                    :
-                    currentData && currentData?.map((post, idx) => <BlogPageCard key={idx} post={post}></BlogPageCard>)
-                }
+        <>
+            {
+                isPending && 
+                <div className="text-center py-10">
+                    <span className="loading loading-spinner loading-lg"></span>
+                </div>
+            }
+            <div className="py-12 max-w-[90%] lg:max-w-[1150px] mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        
+                    {
+                        currentData?.length > 0 &&
+                        currentData?.length > 6 ? 
+                        currentData && currentData?.map((post, idx) => <BlogPageCard key={idx} post={post}></BlogPageCard>).slice(firstItemIndex + 6, lastItemIndex + 6)
+                        :
+                        currentData && currentData?.map((post, idx) => <BlogPageCard key={idx} post={post}></BlogPageCard>)
+                    }
+                </div>
+                <div className="pagination flex justify-center text-center gap-3 mt-5">
+                    {
+                        currentData?.length > 6 &&
+                        pages.map(page => 
+                        <a
+                            className={currentPage === page ? 'selected' : undefined}
+                            onClick={() => {
+                                setCurrentPage(page)
+                            }}
+                            key={page}
+                        >{page + 1}</a>
+                        )
+                    }
+                </div>
             </div>
-            <div className="pagination flex justify-center text-center gap-3 mt-5">
-                {
-                    currentData?.length > 6 &&
-                    pages.map(page => 
-                    <a
-                        className={currentPage === page ? 'selected' : undefined}
-                        onClick={() => {
-                            setCurrentPage(page)
-                        }}
-                        key={page}
-                    >{page + 1}</a>
-                    )
-                }
-            </div>
-        </div>
+        </>
     );
 };
 

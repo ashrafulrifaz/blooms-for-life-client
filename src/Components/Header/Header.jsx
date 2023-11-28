@@ -10,7 +10,7 @@ const Header = () => {
             <div className="max-w-[1150px] mx-auto">
                 <div className="navbar">
                     <div className="flex-1">
-                        <Link to="/" className="text-2xl font-bold"><span className="text-primary">Blooms</span>ForLife</Link>
+                        <Link to="/" className="text-2xl font-bold transition-all"><span className="text-primary">Blooms</span>ForLife</Link>
                     </div>
                 <div className="flex-none">
                     <ul className="flex gap-5 transition-all">

@@ -43,17 +43,17 @@ const CreateDonationRequest = () => {
     }
 
     return (
-        <div className="p-10 bg-white rounded-lg donation_request">
+        <div className="p-4 md:p-10 bg-white rounded-lg donation_request">
             <h2 className="font-second text-xl">Create Your Donation Request</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-5">                    
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">                    
                     <div className="space-y-1">
                         <h3>Requester Name*</h3>
                         <p className="capitalize font-medium">{user?.displayName}</p>
                     </div>
                     <div className="space-y-1">
                         <h3>Requester Email*</h3>
-                        <p className="font-medium">{user?.email}</p>
+                        <p className="font-medium whitespace-pre text-ellipsis overflow-hidden">{user?.email}</p>
                     </div>
                     <div className="space-y-2">
                         <label>Recipient Name*</label>
@@ -97,7 +97,7 @@ const CreateDonationRequest = () => {
                     <input {...register("address", { required: true })} type="text" placeholder='Enter full address line'/>
                     {errors.address && <span className='text-red-500 font-medium text-sm'>Full Address is required</span>}  
                 </div>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
                         <label className="block">Donation Date*</label>
                         <DatePicker 

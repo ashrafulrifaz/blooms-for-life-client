@@ -63,7 +63,7 @@ const EditBlog = ({placeholder}) => {
     }
 
     return (
-        <div className="p-10 bg-white rounded-lg donation_request">
+        <div className="p-4 md:p-10 bg-white rounded-lg donation_request">
             <h2 className="font-second text-xl">Edit This Blog</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
                 <div className='space-y-2'>

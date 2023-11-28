@@ -75,14 +75,14 @@ const Registration = () => {
     }
 
     return (
-        <div className="py-7 grid grid-cols-3 items-center mx-auto registration">
-            <div>
+        <div className="py-7 grid grid-cols-3 items-center max-w-[90%] md:max-w-[1150px] mx-auto registration">
+            <div className='hidden md:block'>
                 <img src={registrationImage} alt="" />
             </div>
-            <div className="col-span-2">
+            <div className="col-span-3 md:col-span-2">
                 <h2 className='text-2xl text-center'>Register</h2>
-                <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 py-10 px-20'>
-                    <div className="grid grid-cols-2 gap-5">
+                <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 py-10 px-0 md:px-20'>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Name*</label>
                             <input {...register("name", { required: true })} type="text" placeholder='Enter your name'/>
@@ -109,7 +109,7 @@ const Registration = () => {
                         <input {...register("email", { required: true })} type="text" placeholder='Enter your email'/>
                         {errors.email && <span className='text-red-500 font-medium text-sm'>Email is required</span>}
                     </div>    
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>District*</label>
                             <select {...register("district", { required: true })} onChange={(e) => setSelectedDistrict(e.target.value)} value={selectedDistrict}>
@@ -142,7 +142,7 @@ const Registration = () => {
                         <input {...register("image", { required: true })} type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
                         {errors.image && <span className='text-red-500 font-medium text-sm'>Image is required</span>} 
                     </div>        
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className='space-y-2'>
                             <label>Password*</label>
                             <input {...register("password", { required: true })} type="password" placeholder='Enter your password' />

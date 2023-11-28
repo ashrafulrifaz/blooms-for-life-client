@@ -23,12 +23,12 @@ const Funding = () => {
 
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
-    const totalPage = Math.ceil(currentData?.length / perPageItem)    
+    const totalPage = Math.ceil(currentData?.length / perPageItem) || 0    
     const pages = currentData ? [...Array(totalPage).keys()] : []
 
     return (
-        <div className="py-10 max-w-[1150px] mx-auto">
-            <div className="grid grid-cols-3 gap-6">
+        <div className="py-10 max-w-[90%] lg:max-w-[1150px] mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <FundingCard donation_id={1} image={funding1} title={'Education for all'} description={des1}></FundingCard>
                 <FundingCard donation_id={2} image={funding2} title={'Bring water to the children'} description={des2}></FundingCard>
                 <FundingCard donation_id={3} image={funding3} title={'Green Revolution'} description={des3}></FundingCard>

@@ -24,11 +24,11 @@ const AllUsers = () => {
 
     const lastItemIndex = perPageItem * currentPage;
     const firstItemIndex = lastItemIndex - perPageItem
-    const totalPage = Math.ceil(currentData?.length / perPageItem)    
+    const totalPage = Math.ceil(currentData?.length / perPageItem) || 0    
     const pages = currentData ? [...Array(totalPage).keys()] : []
 
     return (
-        <div className="p-10 bg-white all_users">
+        <div className="p-4 md:p-10 bg-white all_users">
             <div className="bg-white rounded-xl">
                 <h3 className="text-lg capitalize">Your recent donation requests</h3>
                 <div className="overflow-x-auto my-8 wrapper">
