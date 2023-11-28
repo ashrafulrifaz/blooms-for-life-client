@@ -72,7 +72,8 @@ button {
 .blog .wrapper,
 .my_donation .wrapper,    
 .donation_requests .wrapper, 
-.search .wrapper {    
+.search .wrapper,
+.funding .wrapper {    
   overflow: auto;
   border-radius: 8px;
   border: 1px solid #D7EDFF
@@ -88,6 +89,10 @@ button {
 
 .swal2-cancel {
     margin-top: 0px!important
+}
+
+.swal2-input {
+    width: 75%
 }
 
 table {

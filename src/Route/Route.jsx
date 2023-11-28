@@ -22,6 +22,7 @@ import BloodDonationRequestDetails from "../Pages/DonationRequests/BloodDonation
 import Blog from "../Pages/Blog/Blog";
 import SearchDonor from "../Pages/SearchDonor/SearchDonor";
 import BlogDetails from "../Pages/Blog/BlogDetails";
+import Funding from "../Pages/Funding/Funding";
 
 const Route = createBrowserRouter([
     {
@@ -60,6 +61,10 @@ const Route = createBrowserRouter([
             {
                 path: '/search-donor',
                 element: <SearchDonor></SearchDonor>
+            },
+            {
+                path: '/fundings',
+                element: <Funding></Funding>
             }
         ]
     },

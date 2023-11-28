@@ -11,7 +11,7 @@ const Contact = () => {
     }
  
     return (
-        <div className="py-10 grid grid-cols-2 items-center contact">
+        <div className="py-10 grid grid-cols-2 items-center contact max-w-[1150px] mx-auto">
             <div className="space-y-4">
                 <h2 className="font-second font-bold text-2xl">Get In Touch</h2>
                 <div className="flex items-center gap-4">

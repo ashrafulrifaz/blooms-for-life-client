@@ -13,7 +13,7 @@ const UserHomePage = () => {
                 <h3 className="text-lg capitalize">Your recent donation requests</h3>
                 <div className="overflow-x-auto my-8 wrapper">
                     <table className="table">
-                        <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]" style={{borderRadius: '50px'}}>
+                        <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]">
                             <tr>
                                 <th>recipient name</th>
                                 <th>recipient location</th>
