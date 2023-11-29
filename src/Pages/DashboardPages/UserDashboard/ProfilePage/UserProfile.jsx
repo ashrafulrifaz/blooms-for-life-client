@@ -65,13 +65,13 @@ const UserProfile = () => {
 
 
     return (
-        <div className={`p-4 md:p-10 bg-white ${isEdit ? 'profile_update' : 'profile'}`}>
+        <div className={`p-4 lg:p-10 bg-white ${isEdit ? 'profile_update' : 'profile'}`}>
             <h1 className="text-xl font-second">My Profile</h1>
             <div className="flex items-center border border-slate-200 p-2 md:p-5 mt-6 rounded-lg gap-5 overflow-hidden">
                 <img src={image} className="w-16 h-16 rounded-3xl" alt="" />
                 <div>
                     <h3 className="capitalize text-xl">{name}</h3>
-                    <p>Email: <span className="font-medium text-ellipsis">{email}</span></p>
+                    <p>Email: <span className="font-medium break-all">{email}</span></p>
                 </div>
             </div>
 
@@ -105,7 +105,7 @@ const UserProfile = () => {
                     </div>  
                     <div className='space-y-2'>
                         <label>Email</label>
-                        <p className="font-medium">{email}</p>
+                        <p className="font-medium break-words">{email}</p>
                     </div>    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className='space-y-2'>

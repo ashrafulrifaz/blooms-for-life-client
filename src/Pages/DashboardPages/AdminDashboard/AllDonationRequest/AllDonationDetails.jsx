@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import usePendingRequests from "../../Hooks/usePendingRequests";
+import useAllDonationRequests from "../../../../Hooks/useAllDonationRequests";
 
-const BloodDonationRequestDetails = () => {
-    const {data} = usePendingRequests()
+const AllDonationDetails = () => {
+    const {data} = useAllDonationRequests()
     const {id} = useParams()
     const currentRequest = data.find(item => item._id === id)
     const {requester_name, requester_email, recipient_name, recipient_district, recipient_upazila, date, time, hospital, full_address, details} = currentRequest || {}
 
     return (
-        <div className="py-12 bg-white rounded-lg donation_request max-w-[90%] md:max-w-[95%] xl:max-w-[1150px] mx-auto">
+        <div className="py-12 px-10 bg-white rounded-lg donation_request">
             <h2 className="font-second text-xl">Donation Request Details</h2>
             <div className="mt-8 space-y-4">
                 <div className="grid grid-cols-3 gap-x-8 gap-y-5">                    
@@ -18,7 +18,7 @@ const BloodDonationRequestDetails = () => {
                     </div>
                     <div className="space-y-2">
                         <h3>Requester Email:</h3>
-                        <p className="font-medium">{requester_email}</p>
+                        <p className="font-medium break-words">{requester_email}</p>
                     </div>
                     <div className="space-y-2">
                         <h3>Recipient Name:</h3>
@@ -58,4 +58,4 @@ const BloodDonationRequestDetails = () => {
     );
 };
 
-export default BloodDonationRequestDetails;
+export default AllDonationDetails;

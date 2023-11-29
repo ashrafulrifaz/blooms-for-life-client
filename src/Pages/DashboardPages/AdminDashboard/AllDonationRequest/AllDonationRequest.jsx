@@ -1,22 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
-import UserDonationCard from "../../UserDashboard/HomePage/UserDonationCard";
+import AllDonationCard from "./AllDonationCard";
+import useAllDonationRequests from "../../../../Hooks/useAllDonationRequests";
 
 
 const AllDonationRequest = () => {
-    const axiosSecure = useAxiosSecure()
-    const { data, isPending, refetch } = useQuery({
-        queryKey: ['all_requests'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/donation-requests`)
-            return res.data
-        }
-    })
+    const {data, isPending, refetch} = useAllDonationRequests()
     console.log(data);
     const [currentData, setCurrentData] = useState(data || [])
     const [currentPage, setCurrentPage] = useState(0)
-    const perPageItem = 4
+    const perPageItem = 5
     
     const isInProgress = data?.some(item => item.status == 'inprogress')
 
@@ -68,38 +60,46 @@ const AllDonationRequest = () => {
                         <option value="canceled">canceled</option>
                     </select>
                 </div>
-                <div className="overflow-x-auto my-8 wrapper">
-                    <table className="table">
-                        <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]">
-                            <tr>
-                                <th>recipient name</th>
-                                <th>recipient location</th>
-                                <th>Date & Time</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                { isInProgress && <th>donor info</th> }
-                                { isInProgress && <th>Update Status</th> }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                currentData?.length > 0 &&
-                                currentData?.length > 4 ? 
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} refetch={refetch}></UserDonationCard>).slice(firstItemIndex + 4, lastItemIndex + 4)
-                                :
-                                currentData && currentData?.map((item, idx) => <UserDonationCard key={idx} item={item} refetch={refetch}></UserDonationCard>)
-                            }
-                        </tbody>
-                    </table>
-                    {
-                        currentData?.length === 0 &&
-                        <p className="text-center py-5 text-xl capitalize font-second">no {isInProgress} data found</p>
-                    }
-                </div>
+                {
+                    isPending ?
+                    <div className="text-center py-10">
+                        <span className="loading loading-spinner"></span>
+                    </div>   
+                    :
+                    <div className="overflow-x-auto my-8 wrapper">
+                        <table className="table">
+                            <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]">
+                                <tr>
+                                    <th>recipient name</th>
+                                    <th>recipient location</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                    { isInProgress && <th>donor info</th> }
+                                    { isInProgress && <th>Update Status</th> }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    currentData?.length > 0 &&
+                                    currentData?.length > 5 ? 
+                                    currentData && currentData?.map((item, idx) => <AllDonationCard key={idx} item={item} refetch={refetch}></AllDonationCard>).slice(firstItemIndex + 5, lastItemIndex + 5)
+                                    :
+                                    currentData && currentData?.map((item, idx) => <AllDonationCard key={idx} item={item} refetch={refetch}></AllDonationCard>)
+                                }
+                            </tbody>
+                        </table>
+                        {
+                            currentData?.length === 0 &&
+                            <p className="text-center py-5 text-xl capitalize font-second">no {isInProgress} data found</p>
+                        }
+                    </div>
+
+                }
                 {currentData?.length > 0 && <p className="text-xs uppercase -mt-5">slide right to see full table</p>}
                 <div className="pagination flex justify-center text-center gap-3 mt-5">
                     {
-                        currentData?.length > 4 &&
+                        currentData?.length > 5 &&
                         pages.map(page => 
                         <a
                             className={currentPage === page ? 'selected' : undefined}

@@ -33,7 +33,7 @@ const DonationRequestDetails = () => {
     }
 
     return (
-        <div className="p-10 bg-white rounded-lg donation_request">
+        <div className="p-5 lg:p-10 bg-white rounded-lg donation_request">
             <h2 className="font-second text-xl">Donation Request Details</h2>
             <div className="mt-8 space-y-4">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-5">                    
@@ -43,7 +43,7 @@ const DonationRequestDetails = () => {
                     </div>
                     <div className="space-y-1">
                         <h3>Requester Email</h3>
-                        <p className="font-medium">{requester_email}</p>
+                        <p className="font-medium break-words">{requester_email}</p>
                     </div>
                     <div className="space-y-2">
                         <h3>Recipient Name</h3>

@@ -20,7 +20,7 @@ const DonationRequests = () => {
     const pages = currentData ? [...Array(totalPage).keys()] : []
     
     return (
-        <div className="py-8 md:py-12 donation_requests max-w-[90%] md:max-w-[1150px] mx-auto">
+        <div className="py-8 md:py-12 donation_requests max-w-[90%] md:max-w-[95%] xl:max-w-[1150px] mx-auto">
             <h2 className="text-2xl font-second capitalize">list of all pending blood donation requests</h2>
             <div className="mt-5 md:mt-8">
                 <div className="overflow-x-auto my-8 wrapper">

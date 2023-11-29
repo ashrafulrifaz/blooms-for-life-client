@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useMemo, useRef, useState } from "react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import axios from "axios";
@@ -56,9 +57,9 @@ const AddBlog = ({placeholder}) => {
     }
 
     return (
-        <div className="bg-white p-4 md:p-10 rounded-lg add_blog">
+        <div className="bg-white p-5 lg:p-10 rounded-lg add_blog">
             <h2 className="font-second text-xl">Add a New Blog</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 py-10'>
+            <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 py-5 lg:py-10'>
                 <div className='space-y-2'>
                     <label>Title*</label>
                     <textarea {...register("title", { required: true })} type="text" placeholder='title of the blog'/>
@@ -90,5 +91,9 @@ const AddBlog = ({placeholder}) => {
         </div>
     );
 };
+
+AddBlog.propTypes = {
+    placeholder: PropTypes.object
+}
 
 export default AddBlog;

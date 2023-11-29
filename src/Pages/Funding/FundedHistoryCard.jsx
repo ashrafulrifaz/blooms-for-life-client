@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 const FundedHistoryCard = ({item}) => {
     const {donor_image, donor_name, donor_email, amount} = item
@@ -19,5 +20,9 @@ const FundedHistoryCard = ({item}) => {
         </tr>
     );
 };
+
+FundedHistoryCard.propTypes = {
+    item: PropTypes.object
+}
 
 export default FundedHistoryCard;

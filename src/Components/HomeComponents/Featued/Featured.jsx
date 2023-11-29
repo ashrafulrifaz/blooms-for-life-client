@@ -4,7 +4,7 @@ import image3 from '../../../assets/users-medical.png'
 
 const Featured = () => {
     return (
-        <div className="py-10  max-w-[90%] lg:max-w-[1150px] mx-auto">
+        <div className="py-10  max-w-[90%] xl:max-w-[1150px] mx-auto">
             <h2 className="text-2xl lg:text-4xl">Be a Lifesaver - Donate Blood Today!</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
                 <div className="py-6 md:p-6 space-y-2">

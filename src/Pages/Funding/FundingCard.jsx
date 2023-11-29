@@ -1,11 +1,22 @@
+import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/Provider";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 const FundingCard = ({image, title, description, donation_id}) => {
-    const {user, setFundingInfo} = useContext(AuthContext)
+    const {user, setFundingInfo} = useContext(AuthContext)    
+    const axiosSecure = useAxiosSecure()
+    const {data} = useQuery({
+        queryKey: ['funding_count', donation_id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/funding/${donation_id}`)
+            return res.data
+        }
+    })
     const navigate = useNavigate()
 
     const handleDonation = () => {
@@ -40,17 +51,24 @@ const FundingCard = ({image, title, description, donation_id}) => {
 
     return (
         <div>
-            <img src={image} className='w-full h-56 rounded-t-md' alt="" />
+            <img src={image} className='w-full h-auto lg:h-56 rounded-t-md' alt="" />
             <div className="p-3 border border-red-200 rounded-b-md border-t-0">
                 <h2 className='font-second text-2xl mb-1.5'>{title}</h2>
                 <p className='font-medium'>{description}</p>
                 <div className="mt-3 flex items-center justify-between">
                     <button onClick={handleDonation}>Donate</button>
-                    <p className='text-primary'>Total Raised - ${}</p>
+                    <p className='text-primary'>Total Raised - ${data?.totalAmount}</p>
                 </div>
             </div>
         </div>
     );
 };
+
+FundingCard.propTypes = {
+    image: PropTypes.object,
+    title: PropTypes.object,
+    description: PropTypes.object,
+    donation_id: PropTypes.object
+}
 
 export default FundingCard;

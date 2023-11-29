@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom";
 import useBlogData from "../../../../Hooks/useBlogData";
 import { useForm } from "react-hook-form";
@@ -16,7 +17,6 @@ const EditBlog = ({placeholder}) => {
 	const [updateContent, setUpdateContent] = useState('');
     const [updatingBlog, setUpdatingBlog] = useState(false);
     const {_id, title, thumbnail_image, content} = currentData || {}
-    console.log(updateContent);
 
     const config = useMemo(
 		() => ({
@@ -63,7 +63,7 @@ const EditBlog = ({placeholder}) => {
     }
 
     return (
-        <div className="p-4 md:p-10 bg-white rounded-lg donation_request">
+        <div className="p-5 lg:p-10 bg-white rounded-lg donation_request">
             <h2 className="font-second text-xl">Edit This Blog</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
                 <div className='space-y-2'>
@@ -72,9 +72,9 @@ const EditBlog = ({placeholder}) => {
                 </div>   
                 <div className='space-y-2'>
                     <label>Thumbnail Image*</label>
-                    <div className="flex gap-4 items-center">
-                        <img src={thumbnail_image} className="w-60 rounded-xl" alt="" />
-                        <input {...register("image")} type="file" accept=".jpg, .jpeg, .png, .webp" style={{width: '50%', border: 'none', padding: '5px'}} />
+                    <div className="flex flex-col md:flex-row gap-4 items-left md:items-center">
+                        <img src={thumbnail_image} className="w-full md:w-52 lg:w-60 rounded-xl" alt="" />
+                        <input {...register("image")} type="file" accept=".jpg, .jpeg, .png, .webp" style={{border: 'none', padding: '5px'}} />
                     </div>
                 </div>   
                 <div className='space-y-2'>
@@ -97,5 +97,9 @@ const EditBlog = ({placeholder}) => {
         </div>
     );
 };
+
+EditBlog.propTypes = {
+    placeholder: PropTypes.object
+}
 
 export default EditBlog;

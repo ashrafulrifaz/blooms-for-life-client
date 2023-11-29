@@ -45,8 +45,8 @@ label {
   opacity: 0.6;
 }
 
-input,
-select {
+.payment input,
+.payment select {
   display: block;
   border: none;
   font-size: 18px;

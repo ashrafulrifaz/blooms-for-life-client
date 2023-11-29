@@ -10,7 +10,6 @@ import UserProfile from "../Pages/DashboardPages/UserDashboard/ProfilePage/UserP
 import CreateDonationRequest from "../Pages/DashboardPages/UserDashboard/CreateDonationRequest/CreateDonationRequest";
 import MyDonationRequests from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/MyDonationRequests";
 import EditDonationRequest from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/EditDonationRequest";
-import DonationRequestDetails from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/DonationRequestDetails";
 import DashboardHome from "../Pages/DashboardPages/DashboardHome/DashboardHome";
 import AllUsers from "../Pages/DashboardPages/AdminDashboard/AllUsers/AllUsers";
 import AllDonationRequest from "../Pages/DashboardPages/AdminDashboard/AllDonationRequest/AllDonationRequest";
@@ -26,6 +25,7 @@ import Funding from "../Pages/Funding/Funding";
 import AdminRoute from "./AdminRoute";
 import AdminOrVolunteerRoute from "./AdminAndVolunteerRoute";
 import Payment from "../Pages/Payment/Payment";
+import AllDonationDetails from "../Pages/DashboardPages/AdminDashboard/AllDonationRequest/AllDonationDetails";
 
 const Route = createBrowserRouter([
     {
@@ -101,8 +101,8 @@ const Route = createBrowserRouter([
                 element: <EditDonationRequest></EditDonationRequest>
             },
             {
-                path: '/dashboard/donation-request/:id',
-                element: <DonationRequestDetails></DonationRequestDetails>
+                path: '/dashboard/all-donation-request/:id',
+                element: <AllDonationDetails></AllDonationDetails>
             },
             {
                 path: '/dashboard/all-users',

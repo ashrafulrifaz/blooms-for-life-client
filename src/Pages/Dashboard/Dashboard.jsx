@@ -37,39 +37,41 @@ const Dashboard = () => {
     }, [userRole]);
 
     if (isLoading) {
-        return <span className="loading loading-spinner loading-sm"></span>
+        return <div className="py-7 text-center">
+                    <span className="loading loading-spinner loading-lg"></span>
+                </div>
     }
 
     return (
         <div className="flex flex-col md:flex-row min-h-screen bg-slate-100 dashboard">
-            <div className="py-5 md:py-7 px-4 min-h-full w-full md:w-[22%] bg-white text-[#151515]">
-                <Link to="/" className="hidden md:block text-2xl font-bold"><span className="text-primary">Blooms</span>ForLife</Link>
+            <div className="sidebar">
+                <Link to="/" className="hidden md:block text-xl lg:text-2xl font-bold"><span className="text-primary">Blooms</span>ForLife</Link>
                 <div className="flex md:flex-col items-center justify-center">
-                    <ul className="flex md:flex-col mt-0 lg:mt-8 space-y-0 md:space-y-2">
+                    <ul className="flex md:flex-col mt-0 md:mt-5 lg:mt-8 space-y-0 md:space-y-2">
                         <li>
                             <Link to="/dashboard" className={`${activeClassName && 'active'}`} exact>
-                                <RxDashboard className="mt-[2px] text-xl md:text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px] hidden md:block">Dashboard</span>
+                                <RxDashboard className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">Dashboard</span>
                             </Link>
                         </li>
                         <li>
                             <NavLink to="/dashboard/my-donation-requests">
-                                <VscGitPullRequestGoToChanges className="mt-[2px] text-xl md:text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px] hidden md:block">My Donation Requests</span>
+                                <VscGitPullRequestGoToChanges className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">My Donation Requests</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/dashboard/create-donation-request">
-                                <IoCreateOutline className="mt-[2px] text-xl md:text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px] hidden md:block">Create Donation Request</span>
+                                <IoCreateOutline className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">Create Donation Request</span>
                             </NavLink>
                         </li>
                         {
                             isAdmin &&
                             <li>
                                 <NavLink to="/dashboard/all-users">
-                                    <FiUsers className="mt-[2px] text-xl md:text-lg" />
-                                    <span className="capitalize font-main font-medium text-[15px] hidden md:block">all users</span>
+                                    <FiUsers className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                    <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">all users</span>
                                 </NavLink>
                             </li>
                         }
@@ -77,8 +79,8 @@ const Dashboard = () => {
                             (isAdmin || isVolunteer) &&                        
                             <li>                            
                                 <NavLink to="/dashboard/all-blood-donation-request">
-                                    <CiCircleList className="mt-[2px] text-xl md:text-lg" />
-                                    <span className="capitalize font-main font-medium text-[15px] hidden md:block">All Blood Donation Request</span>
+                                    <CiCircleList className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                    <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">All Blood Donation Request</span>
                                 </NavLink>
                             </li>
                         }
@@ -86,27 +88,27 @@ const Dashboard = () => {
                             (isAdmin || isVolunteer) &&            
                             <li>                            
                                 <NavLink to="/dashboard/content-management">
-                                    <MdContentCopy className="mt-[2px] text-xl md:text-lg" />
-                                    <span className="capitalize font-main font-medium text-[15px] hidden md:block">Content Management</span>
+                                    <MdContentCopy className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                    <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">Content Management</span>
                                 </NavLink>
                             </li>
                         }
                         <li>
                             <NavLink to="/dashboard/profile">
-                                <CgProfile className="mt-[2px] text-xl md:text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px] hidden md:block">My Profile</span>
+                                <CgProfile className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">My Profile</span>
                             </NavLink>
                         </li>
                         <li>
                             <Link to="/">
-                                <HiOutlineHome className="mt-[2px] text-xl md:text-lg" />
-                                <span className="capitalize font-main font-medium text-[15px] hidden md:block">back to home</span>
+                                <HiOutlineHome className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
+                                <span className="capitalize font-main font-medium md:text-sm lg:text-[15px] hidden md:block">back to home</span>
                             </Link>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div className="w-full md:w-[75%] p-3 md:p-10">
+            <div className="w-full md:w-[68%] lg:w-[78%] p-3 md:p-5 lg:p-10">
                 <Outlet></Outlet>
             </div>
         </div>

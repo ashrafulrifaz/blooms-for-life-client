@@ -17,11 +17,11 @@ button {
 }
 
 .donor_button {
-    @apply btn bg-primary hover:bg-transparent text-white hover:scale-95 hover:text-primary
+    @apply bg-primary hover:bg-transparent text-white hover:scale-95 hover:text-primary text-xs md:text-sm py-3 px-5
 }
 
 .search_button {
-    @apply btn text-primary bg-transparent hover:bg-primary hover:text-white hover:scale-95
+    @apply text-primary bg-transparent hover:bg-primary hover:text-white hover:scale-95 text-xs md:text-sm py-3 px-5
 }
 
 .navbar a {
@@ -32,12 +32,20 @@ button {
     @apply text-primary
 }
 
+#nav_item li .active {
+    @apply text-primary bg-transparent
+}
+
 .dashboard li a {
     @apply flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg
 }
 
 .dashboard li .active {
     @apply text-[#39A7FF] bg-[#39a6ff34]
+}
+
+.sidebar {
+    @apply sticky py-5 md:py-7 px-4 min-h-full w-full md:w-[32%] lg:w-[22%] bg-white text-[#151515] top-0
 }
 
 .registration input,
@@ -140,3 +148,7 @@ scrollbar-width: thin;
 scrollbar-color: #888 #f1f1f1;
 
 scrollbar-color: #555 #f1f1f1;
+
+#nav_item li .active {
+    background-color: #fff!important;
+}

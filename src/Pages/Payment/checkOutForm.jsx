@@ -122,7 +122,7 @@ const CheckOutForm = () => {
             <p className="text-red-500 text-center">{showError}</p>
             {paymentSuccessfull && <p className="text-green-500 text-center">You have donated ${paymentSuccessfull} successfully</p>}
             <div className="text-center" id="payment-field">
-                <button className="bg-[#39A7FF] w-1/6 flex gap-12 items-center" type="submit" disabled={!stripe || !clientSecret}>
+                <button className="bg-[#39A7FF] w-1/2 md:w-1/6 flex gap-12 items-center" type="submit" disabled={!stripe || !clientSecret}>
                     <span>Pay</span>
                     {loadingPayment && <span className="loading loading-spinner loading-xs ml-3 mt-1"></span>}
                 </button>

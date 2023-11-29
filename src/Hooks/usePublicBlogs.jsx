@@ -3,7 +3,7 @@ import axios from "axios";
 
 const usePublicBlogs = () => {
     const { data, isPending } = useQuery({
-        queryKey: ['single_user'],
+        queryKey: ['published_blog'],
         queryFn: async () => {
             const res = await axios.get('http://localhost:5000/blogs/published')
             return res.data

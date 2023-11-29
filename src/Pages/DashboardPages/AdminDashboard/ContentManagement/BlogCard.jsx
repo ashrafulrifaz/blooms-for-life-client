@@ -1,12 +1,21 @@
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useUserData from "../../../../Hooks/useUserData";
 
 const BlogCard = ({item, refetch}) => {
     const {_id, thumbnail_image, title, status} = item
     const axiosSecure = useAxiosSecure()
+    const {userRole} = useUserData()
 
     const handleBlogStatus = e => {
+        if(userRole === 'volunteer'){
+            return Swal.fire({
+                title: "You are not able to do this",
+                icon: "error"
+                })
+        }
         const currentStatus = e.target.textContent
         const newStatus = currentStatus === 'draft' ? 'draft' : 'published'
         console.log(newStatus);
@@ -21,6 +30,12 @@ const BlogCard = ({item, refetch}) => {
     }
 
     const handleBlogDelete = () => {
+        if(userRole === 'volunteer'){
+            return Swal.fire({
+                title: "You are not able to do this",
+                icon: "error"
+                })
+        }
         axiosSecure.delete(`/blogs/${_id}`)
         .then(() => {
             refetch()
@@ -37,8 +52,8 @@ const BlogCard = ({item, refetch}) => {
                 <img src={thumbnail_image} className="w-40 h-auto rounded-xl" alt="" />
             </th>
             <th>
-                <h3 className="font-medium text-[15px] md:hidden">{title.slice(0, 30)}...</h3>
-                <h3 className="font-medium text-[15px] hidden md:block">{title}</h3>
+                <h3 className="font-medium text-[15px] lg:hidden">{title.slice(0, 30)}...</h3>
+                <h3 className="font-medium text-[15px] hidden lg:block">{title}</h3>
             </th>
             <th>
                 <h3 className={`font-medium text-[15px] ${status === 'draft' ? 'text-primary' : 'text-green-600'}`}>{status}</h3>
@@ -53,5 +68,10 @@ const BlogCard = ({item, refetch}) => {
         </tr>
     );
 };
+
+BlogCard.propTypes = {
+    item: PropTypes.object,
+    refetch: PropTypes.object
+}
 
 export default BlogCard;

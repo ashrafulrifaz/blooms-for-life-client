@@ -7,13 +7,12 @@ import { useQuery } from '@tanstack/react-query';
 const AdminHome = () => {
     const axiosSecure = useAxiosSecure()
     const { data } = useQuery({
-        queryKey: ['single_user'],
+        queryKey: ['statistics'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/statistics`)
             return res.data
         }
     })
-    console.log(data);
 
     return (
         <div>

@@ -43,7 +43,7 @@ const CreateDonationRequest = () => {
     }
 
     return (
-        <div className="p-4 md:p-10 bg-white rounded-lg donation_request">
+        <div className="p-5 lg:p-10 bg-white rounded-lg donation_request">
             <h2 className="font-second text-xl">Create Your Donation Request</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">                    
@@ -53,7 +53,7 @@ const CreateDonationRequest = () => {
                     </div>
                     <div className="space-y-1">
                         <h3>Requester Email*</h3>
-                        <p className="font-medium whitespace-pre text-ellipsis overflow-hidden">{user?.email}</p>
+                        <p className="font-medium break-all">{user?.email}</p>
                     </div>
                     <div className="space-y-2">
                         <label>Recipient Name*</label>

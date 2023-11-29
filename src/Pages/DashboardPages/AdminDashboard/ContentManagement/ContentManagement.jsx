@@ -5,7 +5,7 @@ import BlogCard from "./BlogCard";
 import useBlogData from "../../../../Hooks/useBlogData";
 
 const ContentManagement = () => {
-    const {data, refetch} = useBlogData()
+    const {data, isPending, refetch} = useBlogData()
     const [currentData, setCurrentData] = useState(data || [])
     const [currentPage, setCurrentPage] = useState(0)
     const perPageItem = 4
@@ -41,7 +41,7 @@ const ContentManagement = () => {
     }
     
     return (
-        <div className="p-4 md:p-10 bg-white rounded-lg blog">
+        <div className="p-5 lg:p-10 bg-white rounded-lg blog">
             <div className="flex justify-between">
                 <select onChange={handleFiltering} name="filter" className="capitalize border border-slate-300 rounded-lg focus:outline-none py-1 px-2">
                     <option value="all">all</option>
@@ -55,31 +55,38 @@ const ContentManagement = () => {
                     </a>
                 </Link>
             </div>
-            <div className="overflow-x-auto my-8 wrapper">
-                <table className="table">
-                    <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]">
-                        <tr>
-                            <th>Thumbnail Image</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            currentData?.length > 0 &&
-                            currentData?.length > 4 ? 
-                            currentData && currentData?.map((item, idx) => <BlogCard key={idx} item={item} refetch={refetch}></BlogCard>).slice(firstItemIndex + 4, lastItemIndex + 4)
-                            :
-                            currentData && currentData?.map((item, idx) => <BlogCard key={idx} item={item} refetch={refetch}></BlogCard>)
-                        }
-                    </tbody>
-                </table>
-                {
-                    currentData?.length === 0 &&
-                    <p className="text-center py-5 text-xl capitalize font-second">no blog found</p>
-                }
-            </div>
+            {
+                isPending ? 
+                <div className="text-center py-10">
+                    <span className="loading loading-spinner loading-lg"></span>
+                </div>
+                :
+                <div className="overflow-x-auto my-8 wrapper">
+                    <table className="table">
+                        <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]">
+                            <tr>
+                                <th>Thumbnail Image</th>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                currentData?.length > 0 &&
+                                currentData?.length > 4 ? 
+                                currentData && currentData?.map((item, idx) => <BlogCard key={idx} item={item} refetch={refetch}></BlogCard>).slice(firstItemIndex + 4, lastItemIndex + 4)
+                                :
+                                currentData && currentData?.map((item, idx) => <BlogCard key={idx} item={item} refetch={refetch}></BlogCard>)
+                            }
+                        </tbody>
+                    </table>
+                    {
+                        currentData?.length === 0 &&
+                        <p className="text-center py-5 text-xl capitalize font-second">no blog found</p>
+                    }
+                </div>
+            }
             <div className="pagination flex justify-center text-center gap-3 mt-5">
                 {
                     currentData?.length > 4 &&

@@ -13,6 +13,7 @@ const useAdmin = () => {
             return res.data?.role === 'admin'
         }
     })
+    
     return {isAdmin, isAdminPending}
 };
 
