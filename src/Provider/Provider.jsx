@@ -16,10 +16,10 @@ const Provider = ({children}) => {
     const axiosPublic = useAxiosPublic()
 
     useEffect(() => {
-        axios.get('http://localhost:5000/districts')
+        axios.get('https://blood-donation-server-side.vercel.app/districts')
         .then(res => setDistrict(res.data))
 
-        axios.get(`http://localhost:5000/upazilas`)
+        axios.get(`https://blood-donation-server-side.vercel.app/upazilas`)
         .then(res => setUpazilas(res.data))
 
 

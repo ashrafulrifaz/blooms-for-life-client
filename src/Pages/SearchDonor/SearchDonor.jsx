@@ -24,7 +24,7 @@ const SearchDonor = () => {
             console.log('empty');
             return
         }
-        axios.get(`http://localhost:5000/users/search?email=${email}&blood_group=${blood_group}&district=${district}&upazila=${upazila}`)
+        axios.get(`https://blood-donation-server-side.vercel.app/users/search?email=${email}&blood_group=${blood_group}&district=${district}&upazila=${upazila}`)
             .then(res => {
                 setCurrentData(res.data)
                 if(res.data.length === 0) {

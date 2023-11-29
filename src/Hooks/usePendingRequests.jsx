@@ -5,7 +5,7 @@ const usePendingRequests = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['pending_requests'],
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/donation-requests/pending")
+            const res = await axios.get("https://blood-donation-server-side.vercel.app/donation-requests/pending")
             return res.data
         }
     })
