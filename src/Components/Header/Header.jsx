@@ -1,9 +1,22 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Provider/Provider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Header = () => {
     const {user, LogOutUser} = useContext(AuthContext)
+    const axiosPublic = useAxiosPublic()
+
+    const handleLogOutUser = () => {
+        LogOutUser()
+        .then(() => {            
+            const userInfo = {email: user?.email}
+            axiosPublic.post('/logout', userInfo, {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+            })
+        })
+    }
 
     return (
         <div className="border-b border-slate-200 py-1">
@@ -50,7 +63,7 @@ const Header = () => {
                         {
                             user && 
                             <li>
-                                <a className="cursor-pointer" onClick={() => LogOutUser()}>Log Out</a>    
+                                <a className="cursor-pointer" onClick={handleLogOutUser}>Log Out</a>    
                             </li>
                         }
                     </ul>

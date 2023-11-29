@@ -1,11 +1,12 @@
 import Swal from "sweetalert2";
-import useAuth from "../../Hooks/useAuth";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/Provider";
 
 
 const FundingCard = ({image, title, description, donation_id}) => {
-    const {user} = useAuth()
-    const axiosSecure = useAxiosSecure()
+    const {user, setFundingInfo} = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleDonation = () => {
         Swal.fire({
@@ -30,12 +31,8 @@ const FundingCard = ({image, title, description, donation_id}) => {
                     donor_email: user?.email,
                     donor_image: user?.photoURL
                 }                
-                axiosSecure.post('/funding', donationInfo)
-                    .then(() => {
-                        Swal.fire({
-                            title: `$${result.value} Donated`,
-                        });
-                    })
+                navigate('/fundings/payment')
+                setFundingInfo(donationInfo)
             }
           });
           

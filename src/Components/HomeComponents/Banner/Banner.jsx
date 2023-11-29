@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import bannerImg from '../../../assets/banner.png'
-import bannerBgImg from '../../../assets/banner-bg.png'
+import bannerBgImg from '../../../assets/banner-bg-1.png'
 import useAuth from '../../../Hooks/useAuth';
 
 const Banner = () => {

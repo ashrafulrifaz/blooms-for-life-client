@@ -23,6 +23,9 @@ import Blog from "../Pages/Blog/Blog";
 import SearchDonor from "../Pages/SearchDonor/SearchDonor";
 import BlogDetails from "../Pages/Blog/BlogDetails";
 import Funding from "../Pages/Funding/Funding";
+import AdminRoute from "./AdminRoute";
+import AdminOrVolunteerRoute from "./AdminAndVolunteerRoute";
+import Payment from "../Pages/Payment/Payment";
 
 const Route = createBrowserRouter([
     {
@@ -65,6 +68,10 @@ const Route = createBrowserRouter([
             {
                 path: '/fundings',
                 element: <Funding></Funding>
+            },
+            {
+                path: '/fundings/payment',
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
             }
         ]
     },
@@ -99,23 +106,23 @@ const Route = createBrowserRouter([
             },
             {
                 path: '/dashboard/all-users',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path: '/dashboard/all-blood-donation-request',
-                element: <AllDonationRequest></AllDonationRequest>
+                element: <AdminOrVolunteerRoute><AllDonationRequest></AllDonationRequest></AdminOrVolunteerRoute>
             },
             {
                 path: '/dashboard/content-management',
-                element: <ContentManagement></ContentManagement>
+                element: <AdminOrVolunteerRoute><ContentManagement></ContentManagement></AdminOrVolunteerRoute>
             },
             {
                 path: '/dashboard/content-management/add-blog',
-                element: <AddBlog></AddBlog>
+                element: <AdminOrVolunteerRoute><AddBlog></AddBlog></AdminOrVolunteerRoute>
             },
             {
                 path: '/dashboard/edit-blog/:id',
-                element: <EditBlog></EditBlog>
+                element: <AdminOrVolunteerRoute><EditBlog></EditBlog></AdminOrVolunteerRoute>
             }
         ]
     }

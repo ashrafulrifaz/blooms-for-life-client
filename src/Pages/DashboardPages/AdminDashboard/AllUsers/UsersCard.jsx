@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 const UsersCard = ({item, refetch}) => {
     const {_id, image, name, email, status, role} = item
     const axiosSecure = useAxiosSecure()
-    console.log(role);
 
     const handleUserStatus = e => {
         if(role === 'admin'){

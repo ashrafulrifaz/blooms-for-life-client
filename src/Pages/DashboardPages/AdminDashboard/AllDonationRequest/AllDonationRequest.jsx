@@ -57,7 +57,7 @@ const AllDonationRequest = () => {
 
 
     return (
-        <div className="mt-8 bg-white rounded-xl p-5">
+        <div className="mt-8 bg-white rounded-xl p-2 md:p-5 all_donation">
                 <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
                     <h3 className="text-lg capitalize">Your all donation requests</h3>
                     <select onChange={handleFiltering} name="filter" className="capitalize border border-slate-300 rounded-lg focus:outline-none py-1 px-2">

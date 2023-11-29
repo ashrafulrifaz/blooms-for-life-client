@@ -1,18 +1,19 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/Provider";
 import { Navigate } from "react-router-dom";
-import useAdmin from "../Hooks/useAdmin";
+import useAdminOrVolunteer from "../Hooks/useAdminOrVolunteer";
 
-const AdminRoute = ({children}) => {
+
+const AdminOrVolunteerRoute = ({children}) => {
     const {user, loading, LogOutUser} = useContext(AuthContext)
-    const {isAdmin, isAdminPending} = useAdmin()
-    console.log(isAdmin);
+    const {isAdminOrVolunteer, isAdminOrVolunteerPending} = useAdminOrVolunteer()
+    console.log(isAdminOrVolunteer);
 
-    if(loading || isAdminPending) {
+    if(loading || isAdminOrVolunteerPending) {
         return <div className="text-center py-20"><span className="loading loading-spinner loading-lg"></span></div>
     }
 
-    if(user && isAdmin){
+    if(user && isAdminOrVolunteer){
         return children
     } else {
         LogOutUser()
@@ -20,4 +21,4 @@ const AdminRoute = ({children}) => {
     }
 };
 
-export default AdminRoute;
+export default AdminOrVolunteerRoute;

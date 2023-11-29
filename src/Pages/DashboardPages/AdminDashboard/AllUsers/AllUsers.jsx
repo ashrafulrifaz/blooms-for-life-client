@@ -30,8 +30,8 @@ const AllUsers = () => {
     return (
         <div className="p-4 md:p-10 bg-white all_users">
             <div className="bg-white rounded-xl">
-                <h3 className="text-lg capitalize">Your recent donation requests</h3>
-                <div className="overflow-x-auto my-8 wrapper">
+                <h3 className="text-lg capitalize">All users</h3>
+                <div className="overflow-x-auto my-3 md:my-8 wrapper">
                     <table className="table">
                         <thead className="bg-[#D7EDFF] text-[#39A7FF] uppercase text-[13px]">
                             <tr>

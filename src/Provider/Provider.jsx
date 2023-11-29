@@ -12,6 +12,7 @@ const Provider = ({children}) => {
     const [districts, setDistrict] = useState([])
     const [upazilas, setUpazilas] = useState([])
     const [loading, setLoading] = useState(true)
+    const [fundingInfo, setFundingInfo] = useState(null)
     const axiosPublic = useAxiosPublic()
 
     useEffect(() => {
@@ -31,13 +32,19 @@ const Provider = ({children}) => {
                 .then(res => {
                     console.log(res.data);
                 })
+            } else {     
+                const userInfo = {email: user?.email}
+                axiosPublic.post('/logout', userInfo, {withCredentials: true})
+                .then(res => {
+                    console.log(res.data);
+                })
             }
         })
 
         return () => {
            unsubscribe()
         }
-    }, [auth, axiosPublic])
+    }, [auth, axiosPublic, user])
 
     const RegisterUser = (email, password) => {
         setLoading(true)
@@ -54,7 +61,7 @@ const Provider = ({children}) => {
     }
 
     const info = {
-        user, setUser, RegisterUser, LoginUser, LogOutUser, loading, auth, districts, upazilas
+        user, setUser, RegisterUser, LoginUser, LogOutUser, loading, auth, districts, upazilas, fundingInfo, setFundingInfo
     }
 
     return (

@@ -32,6 +32,10 @@ button {
     @apply text-primary
 }
 
+.dashboard li a {
+    @apply flex gap-2 cursor-pointer transition-colors hover:text-[#39A7FF] hover:bg-[#39a6ff34] p-2 rounded-lg
+}
+
 .dashboard li .active {
     @apply text-[#39A7FF] bg-[#39a6ff34]
 }
@@ -71,7 +75,8 @@ button {
 .user_home .wrapper,
 .all_users .wrapper,
 .blog .wrapper,
-.my_donation .wrapper,    
+.my_donation .wrapper,   
+.all_donation .wrapper, 
 .donation_requests .wrapper, 
 .search .wrapper,
 .funding .wrapper {    
@@ -92,8 +97,12 @@ button {
     margin-top: 0px!important
 }
 
-.swal2-input {
-    width: 75%
+#swal2-input {
+    width: 60%
+}
+
+#payment-field button {
+    background: #39A7FF!important
 }
 
 table {

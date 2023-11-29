@@ -3,19 +3,23 @@ import loginImage from '../../assets/login.jpg'
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/Provider';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 const Login = () => {
     const {LoginUser} = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
+    const [loadingLogin, setLoadingLogin] = useState(false);
 
     const onSubmit = data => {
+        setLoadingLogin(true)
         LoginUser(data.email, data.password)
-            .then(result => {
+            .then(() => {
                 navigate('/')
-                console.log('result', result);
+                setLoadingLogin(false)
             })
             .catch(error => console.log(error.message))
+        setLoadingLogin(false)
     }
  
 
@@ -30,12 +34,17 @@ const Login = () => {
                     <div className='space-y-2'>
                         <label>Email*</label>
                         <input {...register("email", { required: true })} type="text" placeholder='Enter your email'/>
+                            {errors.email && <span className='text-red-500 font-medium text-sm'>Email is required</span>}
                     </div>           
                     <div className='space-y-2'>
                         <label>Password*</label>
                         <input {...register("password", { required: true })} type="password" placeholder='Enter your password' />
+                            {errors.password && <span className='text-red-500 font-medium text-sm'>Password is required</span>}
                     </div>  
-                    <button className='px-10 bg-[#007CFF] hover:bg-[#007bffc0] transition-all'>Login</button>
+                    <button className='px-10 flex items-center gap-3 bg-[#007CFF] hover:bg-[#007bffc0]'>
+                        <span>Login</span>
+                        {loadingLogin && <span className="loading loading-spinner loading-sm"></span>}
+                    </button>
                     <p className='font-medium'>Dont{"'"}t have an account? <Link to="/registration" className='font-bold text-[#007CFF] hover:underline'>Register</Link></p>
                 </form>
             </div>
