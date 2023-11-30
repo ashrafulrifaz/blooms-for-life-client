@@ -14,6 +14,14 @@ const AdminHome = () => {
         }
     })
 
+    const { data: totalAmount } = useQuery({
+        queryKey: ['totalAmount'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/total-funding`)
+            return res.data
+        }
+    })
+
     return (
         <div>
             <h2 className="font-second text-2xl">Statistics</h2>
@@ -25,12 +33,12 @@ const AdminHome = () => {
                         <h4>Total User</h4>
                     </div>
                     <div className="bg-white p-5 rounded-lg drop-shadow-md text-center hover:drop-shadow-xl transition-all">
-                        <img src={totalRequest} className="w-10 mx-auto text-4xl"/>
-                        <h3 className="text-5xl mt-4 mb-2">{100}</h3>
+                        <img src={totalFunding} className="w-10 mx-auto text-4xl"/>
+                        <h3 className="text-5xl mt-4 mb-2">{totalAmount?.totalAmount}</h3>
                         <h4>Total Funding</h4>
                     </div>
                     <div className="bg-white p-5 rounded-lg drop-shadow-md text-center hover:drop-shadow-xl transition-all">
-                        <img src={totalFunding} className="w-10 mx-auto text-4xl"/>
+                        <img src={totalRequest} className="w-10 mx-auto text-4xl"/>
                         <h3 className="text-5xl mt-4 mb-2">{data?.totalRequest}</h3>
                         <h4>Total Blood Donation Request</h4>
                     </div>
