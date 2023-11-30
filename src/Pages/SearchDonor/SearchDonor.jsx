@@ -48,7 +48,7 @@ const SearchDonor = () => {
         <div className="pt-16 pb-20 max-w-[90%] md:max-w-[95%] xl:max-w-[1150px] mx-auto search">
             <h2 className="text-xl font-second mb-4 text-center">Search a Donor</h2>
             <form onSubmit={handleSubmit(onSubmit)} >
-                <div className="rounded-lg p-4 shadow-xl border border-slate-200 flex items-center justify-between">
+                <div className="rounded-lg p-4 shadow-xl border border-slate-200 flex flex-col md:flex-row gap-5 items-center md:justify-between">
                     <div>
                         <input {...register("email")} type="text" placeholder='Enter your email'/>
                     </div>
