@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment/moment";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const CreateDonationRequest = () => {
@@ -37,6 +38,10 @@ const CreateDonationRequest = () => {
         }
         axiosSecure.post('/donation-requests', newRequest)
         .then(res => {
+            Swal.fire({
+                title: "Form Submitted",
+                icon: "success"
+                })
             reset()
             console.log(res.data);
         })
@@ -121,7 +126,7 @@ const CreateDonationRequest = () => {
                 </div>
                 <div className="space-y-2">
                     <label>Details*</label>
-                    <textarea rows={4} {...register("details", { required: true })} type="text" placeholder='Enter full address line'/>
+                    <textarea rows={4} {...register("details", { required: true })} type="text" placeholder='Enter donation details'/>
                     {errors.details && <span className='text-red-500 font-medium text-sm'>Details is required</span>}  
                 </div>
                 <button>Create Request</button>

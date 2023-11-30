@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
+import Swal from 'sweetalert2';
 
 const AddBlog = ({placeholder}) => {
     const [loadingBlog, setLoadingBlog] = useState(false);
@@ -48,6 +49,10 @@ const AddBlog = ({placeholder}) => {
             }
             axiosSecure.post('/blogs', blogInfo)
                 .then(() => {
+                    Swal.fire({
+                        title: "New Blod Created",
+                        icon: "success"
+                        })
                     reset()
                     setLoadingBlog(false)
                 })

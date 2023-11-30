@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const BlogPageCard = ({post}) => {
     const {thumbnail_image, title, content, _id} = post || {}
-    const description = content.slice(0, 165).replace('</', '').concat('....')
+    const description = content.slice(0, 160).replace('</', '').concat('....')
 
     return (        
         <div className="">

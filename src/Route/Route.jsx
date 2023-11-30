@@ -26,6 +26,7 @@ import AdminRoute from "./AdminRoute";
 import AdminOrVolunteerRoute from "./AdminAndVolunteerRoute";
 import Payment from "../Pages/Payment/Payment";
 import AllDonationDetails from "../Pages/DashboardPages/AdminDashboard/AllDonationRequest/AllDonationDetails";
+import DonationRequestDetails from "../Pages/DashboardPages/UserDashboard/MyDonationRequests/DonationRequestDetails";
 
 const Route = createBrowserRouter([
     {
@@ -99,6 +100,10 @@ const Route = createBrowserRouter([
             {
                 path: '/dashboard/edit/:id',
                 element: <EditDonationRequest></EditDonationRequest>
+            },
+            {
+                path: '/dashboard/donation-request/:id',
+                element: <DonationRequestDetails></DonationRequestDetails>
             },
             {
                 path: '/dashboard/all-donation-request/:id',

@@ -11,8 +11,6 @@ import useUserData from "../../Hooks/useUserData";
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
-    const [isAdmin, setIsAdmin] = useState(false)
-    const [isVolunteer, setIsVolunteer] = useState(false)
     const {userRole} = useUserData()
     const [isLoading, setIsLoading] = useState(true);
     const isCurrentPath = window.location.pathname === '/dashboard';
@@ -23,18 +21,9 @@ const Dashboard = () => {
         const loadingTimeout = setTimeout(() => {
             setIsLoading(false);
         }, 1000);
-        
-        if(userRole === 'admin'){
-            setIsAdmin(true)
-            return
-        }
-        if(userRole === 'volunteer'){
-            setIsVolunteer(true)
-            return
-        }
 
         return () => clearTimeout(loadingTimeout);
-    }, [userRole]);
+    }, []);
 
     if (isLoading) {
         return <div className="py-7 text-center">
@@ -67,7 +56,7 @@ const Dashboard = () => {
                             </NavLink>
                         </li>
                         {
-                            isAdmin &&
+                            userRole === 'admin' &&
                             <li>
                                 <NavLink to="/dashboard/all-users">
                                     <FiUsers className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
@@ -76,7 +65,7 @@ const Dashboard = () => {
                             </li>
                         }
                         {
-                            (isAdmin || isVolunteer) &&                        
+                            (userRole === 'admin' || userRole === 'volunteer') &&                        
                             <li>                            
                                 <NavLink to="/dashboard/all-blood-donation-request">
                                     <CiCircleList className="mt-0 lg:mt-[2px] text-xl md:text-lg" />
@@ -85,7 +74,7 @@ const Dashboard = () => {
                             </li>
                         }
                         {
-                            (isAdmin || isVolunteer) &&            
+                            (userRole === 'admin' || userRole === 'volunteer') &&            
                             <li>                            
                                 <NavLink to="/dashboard/content-management">
                                     <MdContentCopy className="mt-0 lg:mt-[2px] text-xl md:text-lg" />

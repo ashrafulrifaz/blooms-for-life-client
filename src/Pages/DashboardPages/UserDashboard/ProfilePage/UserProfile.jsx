@@ -7,6 +7,7 @@ import { AuthContext } from "../../../../Provider/Provider";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useUserData from "../../../../Hooks/useUserData";
 import useAuth from "../../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const UserProfile = () => {
     const {data} = useUserData()
@@ -56,8 +57,11 @@ const UserProfile = () => {
         setUser({...user, displayName: data.name !== undefined ? data.name : name, photoURL: data.image.length > 0 ? newImage: image})
         
         axiosSecure.put(`/users/${_id}`, newInfo)
-        .then(res => {
-            console.log(res.data);
+        .then(() => {
+            Swal.fire({
+                title: "Profile Updated",
+                icon: "success"
+                })
             setUpdateLoding(false)
         })
         setUpdateLoding(false)
