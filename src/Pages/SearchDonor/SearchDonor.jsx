@@ -35,11 +35,6 @@ const SearchDonor = () => {
             })
     }
     console.log(currentData);
-
-    // useEffect(() => {
-    //     setCurrentData(data)
-    // }, [data]) 
-
     
     const [currentPage, setCurrentPage] = useState(0)
     const perPageItem = 5
@@ -50,7 +45,7 @@ const SearchDonor = () => {
     const pages = currentData ? [...Array(totalPage).keys()] : []
 
     return (
-        <div className="pt-16 pb-20 search">
+        <div className="pt-16 pb-20 max-w-[90%] md:max-w-[95%] xl:max-w-[1150px] search">
             <h2 className="text-xl font-second mb-4 text-center">Search a Donor</h2>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <div className="rounded-lg p-4 shadow-xl border border-slate-200 flex items-center justify-between">

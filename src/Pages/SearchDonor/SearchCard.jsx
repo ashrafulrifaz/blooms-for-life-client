@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 
 const SearchCard = ({user}) => {
     const {image, name, email, blood_group, district, upazila} = user || {}
+
     return (
         <tr>
             <th>
@@ -24,5 +26,9 @@ const SearchCard = ({user}) => {
         </tr>
     );
 };
+
+SearchCard.propTypes = {
+    user: PropTypes.object
+}
 
 export default SearchCard;
