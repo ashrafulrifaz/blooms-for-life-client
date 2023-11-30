@@ -96,7 +96,7 @@ const MyDonationRequests = () => {
                     </div>
 
                 }
-                {currentData?.length > 0 && <p className="text-xs uppercase -mt-5">slide right to see full table</p>}
+                {currentData?.length > 0 && <p className="text-xs uppercase -mt-5 sm:hidden">slide right to see full table</p>}
                 <div className="pagination flex justify-center text-center gap-3 mt-5">
                     {
                         currentData?.length > 4 &&
