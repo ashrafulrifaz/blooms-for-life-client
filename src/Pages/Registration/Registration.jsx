@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { updateProfile } from 'firebase/auth';
 import axios from 'axios';
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 
 const Registration = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null)
@@ -15,6 +16,9 @@ const Registration = () => {
     const {RegisterUser, user, setUser, auth, districts, upazilas} = useContext(AuthContext)
     const navigate = useNavigate()
     const axiosPublic = useAxiosPublic()
+    const [showPass1, setShowPass1] = useState(false)
+    const [showPass2, setShowPass2] = useState(false)
+    console.log(showPass2);
 
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY
     const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -143,14 +147,34 @@ const Registration = () => {
                         {errors.image && <span className='text-red-500 font-medium text-sm'>Image is required</span>} 
                     </div>        
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div className='space-y-2'>
+                        <div className='space-y-2 relative'>
                             <label>Password*</label>
-                            <input {...register("password", { required: true })} type="password" placeholder='Enter your password' />
+                            <div>
+                                <input {...register("password", { required: true })} type={`${showPass1 ? 'text' : 'password'}`} placeholder='Enter your password' />
+                                <span onClick={() => setShowPass1(!showPass1)}>
+                                    {
+                                        showPass1 ? 
+                                        <IoEyeOutline className={`h-8 w-5 absolute top-[3.3rem] right-3 cursor-pointer`}/>
+                                        :                                    
+                                        <IoEyeOffOutline className={`h-8 w-5 absolute top-[3.3rem] right-3 cursor-pointer`}/>
+                                    }
+                                </span>
+                            </div>
                             {errors.password && <span className='text-red-500 font-medium text-sm'>Password is required</span>}
                         </div>  
-                        <div className='space-y-2'>
+                        <div className='space-y-2 relative'>
                             <label>Confirm Password*</label>
-                            <input {...register("confirm", { required: true })} type="password" placeholder='Confirm your password' />
+                            <div>
+                                <input {...register("confirm", { required: true })} type={`${showPass2 ? 'text' : 'password'}`} placeholder='Confirm your password' />
+                                <span onClick={() => setShowPass2(!showPass2)}>
+                                    {
+                                        showPass2 ? 
+                                        <IoEyeOutline className={`h-8 w-5 absolute top-[3.3rem] right-3 cursor-pointer`}/>
+                                        :                                    
+                                        <IoEyeOffOutline className={`h-8 w-5 absolute top-[3.3rem] right-3 cursor-pointer`}/>
+                                    }
+                                </span>
+                            </div>
                             {errors.confirm && <span className='text-red-500 font-medium text-sm'>Confirm your Password</span>}
                         </div>  
                     </div>    
